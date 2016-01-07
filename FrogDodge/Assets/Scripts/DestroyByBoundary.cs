@@ -21,7 +21,7 @@ public class DestroyByBoundary : MonoBehaviour {
                
                 //Move the obstacles on that road when the road moves
                 //Instantiate(obstacle, new Vector3(frontRoad.transform.position.x - 8f, 0.525f, frontRoad.transform.position.z), Quaternion.identity);
-                obstacleCube.transform.position = new Vector3(obstacleCube.transform.position.x, 0.525f, roads[0].transform.position.z);
+                obstacleCube.transform.position = new Vector3(obstacleCube.transform.position.x -3f, 0.525f, roads[0].transform.position.z);
             }
             if(other.name == "Road2")
             {
