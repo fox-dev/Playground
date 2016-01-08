@@ -13,9 +13,10 @@ public class PlayerController : MonoBehaviour {
     public float speed, rotSpeed, moveDistance;
     public int rotationInDegrees;
 
-    //Animator anim;
+    Animator anim;
 
-    //int moveHash = Animator.StringToHash("Move");
+    int moveHash = Animator.StringToHash("Roll");
+    int stopHash = Animator.StringToHash("Stop");
 
     void Start()
     {
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour {
         endRotation = new GameObject();
         endRotation.transform.rotation = transform.rotation;
 
-       // anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
       
 
 
@@ -49,16 +50,20 @@ public class PlayerController : MonoBehaviour {
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
             endRotation.transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
 
-            //anim.SetTrigger(moveHash);
+            anim.SetTrigger(moveHash);
            
           
+        }
+        else
+        {
+            anim.SetTrigger(stopHash);
         }
 
        // float move = Input.GetAxis("Vertical");
        // anim.SetFloat("Speed", move);
 
         transform.position = Vector3.MoveTowards(transform.position, endPos, speed*Time.deltaTime);
-        transform.rotation = Quaternion.Lerp(transform.rotation, endRotation.transform.rotation, rotSpeed * Time.deltaTime);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, endRotation.transform.rotation, rotSpeed * Time.deltaTime);
 
         //Vector3 movement = new Vector3(0.0f, 0.0f, moveVertical);
         //Vector3 movement = new Vector3(0.0f, 0.0f, 1f);
