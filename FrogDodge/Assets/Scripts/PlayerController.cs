@@ -3,6 +3,10 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
+    bool inside;
+    ArrayList obstacles;
+
+
 	Rigidbody rg;
     Vector3 startPos, endPos;
     Quaternion startRot, endRot;
@@ -20,24 +24,23 @@ public class PlayerController : MonoBehaviour {
 
     void Start()
     {
+        inside = false;
+        obstacles = new ArrayList();
         startPos = transform.position;
         endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
        
         startRot = transform.rotation;
-
         endRotation = new GameObject();
         endRotation.transform.rotation = transform.rotation;
 
         anim = GetComponent<Animator>();
-      
-
-
 
     }
 
     void Update()
 	{
-        print(endRotation.transform.rotation.x);
+        print(inside);
+        //print(endRotation.transform.rotation.x);
 
         //float moveHorizontal = Input.GetAxis("Horizontal");   
         //float moveVertical = Input.GetAxis("Vertical");
@@ -45,22 +48,26 @@ public class PlayerController : MonoBehaviour {
         lerp += Time.deltaTime / duration;
      
 
-        if (Input.GetKeyDown("space"))
-        {
-            endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
-            endRotation.transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
-
-            anim.SetTrigger(moveHash);
-           
-          
+        if(inside) { 
+            if (Input.GetKeyDown("space"))
+            {
+                endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
+                transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
+    
+                anim.SetTrigger(moveHash);
+            }
+            else
+            {
+                anim.SetTrigger(stopHash);
+            }
         }
         else
         {
             anim.SetTrigger(stopHash);
         }
 
-       // float move = Input.GetAxis("Vertical");
-       // anim.SetFloat("Speed", move);
+        //float move = Input.GetAxis("Vertical");
+        //anim.SetFloat("Speed", move);
 
         transform.position = Vector3.MoveTowards(transform.position, endPos, speed*Time.deltaTime);
         //transform.rotation = Quaternion.Lerp(transform.rotation, endRotation.transform.rotation, rotSpeed * Time.deltaTime);
@@ -69,8 +76,36 @@ public class PlayerController : MonoBehaviour {
         //Vector3 movement = new Vector3(0.0f, 0.0f, 1f);
 
         //rg.velocity = movement * speed;
+    }
 
+   
 
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Cube" || other.tag == "Sphere")
+        {
+            inside = false;
+        }
+    }
 
+    void OnTriggerStay(Collider other)
+    {
+        
+        if (other.tag == "Cube" || other.tag == "Sphere")
+        {
+
+            if (other.transform.position.x > transform.position.x && other.GetComponent<Rigidbody>().velocity.x >= 0f)
+            {
+                //do nothing
+            }
+            else
+            {
+                inside = true;
+            }
+
+            
+            
+            
+        }
     }
 }
