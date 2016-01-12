@@ -46,30 +46,37 @@ public class PlayerController : MonoBehaviour {
         //float moveVertical = Input.GetAxis("Vertical");
 
         lerp += Time.deltaTime / duration;
-     
 
-        if(inside) { 
-            if (Input.GetKeyDown("space"))
+       
+            if (Input.GetKeyDown("space")  && inside)
             {
+
+
+            GetComponent<Collider>().enabled = false;
+            inside = false;
                 endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
                 transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
-    
+                
+                
+
                 anim.SetTrigger(moveHash);
             }
             else
             {
                 anim.SetTrigger(stopHash);
             }
-        }
-        else
+
+        if(transform.position.z >= endPos.z)
         {
-            anim.SetTrigger(stopHash);
+            GetComponent<Collider>().enabled = true;
         }
+      
 
         //float move = Input.GetAxis("Vertical");
         //anim.SetFloat("Speed", move);
 
         transform.position = Vector3.MoveTowards(transform.position, endPos, speed*Time.deltaTime);
+
         //transform.rotation = Quaternion.Lerp(transform.rotation, endRotation.transform.rotation, rotSpeed * Time.deltaTime);
 
         //Vector3 movement = new Vector3(0.0f, 0.0f, moveVertical);
@@ -101,6 +108,7 @@ public class PlayerController : MonoBehaviour {
             else
             {
                 inside = true;
+  
             }
 
             
