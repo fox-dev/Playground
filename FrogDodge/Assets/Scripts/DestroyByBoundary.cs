@@ -6,7 +6,11 @@ public class DestroyByBoundary : MonoBehaviour {
 	Rigidbody rg;
     public GameObject player;
     public GameObject frontRoad;
+	public GameObject frontRoadR;
+	public GameObject frontRoadL;
     public GameObject[] roads;
+	public GameObject[] roadsR;
+	public GameObject[] roadsL;
 
     public GameObject obstacleCube, obstacleSphere;
 
@@ -30,5 +34,18 @@ public class DestroyByBoundary : MonoBehaviour {
 
         }
 
+		if (other.tag == "RoadR")
+		{
+			frontRoadR = other.gameObject;
+			other.transform.position = new Vector3(0, 0, other.transform.position.z + 40);
+		
+		}
+
+		if (other.tag == "RoadL")
+		{
+			frontRoadL = other.gameObject;
+			other.transform.position = new Vector3(0, 0, other.transform.position.z + 40);
+
+		}
 	}
 }
