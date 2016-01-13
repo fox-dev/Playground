@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour {
         lerp += Time.deltaTime / duration;
 
        
-            if (Input.GetKeyDown("space")  && inside)
+            if (Input.GetKeyDown("space"))
             {
 
 
