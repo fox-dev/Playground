@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-    bool inside;
+    bool inside,left,right;
     ArrayList obstacles;
 
 
@@ -48,23 +48,38 @@ public class PlayerController : MonoBehaviour {
         lerp += Time.deltaTime / duration;
 
        
-            if (Input.GetKeyDown("space"))
-            {
-
+        if(Input.GetKeyDown("space") && inside)
+        {
 
             GetComponent<Collider>().enabled = false;
             inside = false;
-                endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
-                transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
-                
-                
+            endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
+            transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
+            anim.SetTrigger(moveHash);
+        }
 
-                anim.SetTrigger(moveHash);
-            }
-            else
-            {
-                anim.SetTrigger(stopHash);
-            }
+        else if(Input.GetKeyDown("left") && left)
+        {
+            GetComponent<Collider>().enabled = false;
+            inside = false;
+            left = false;
+            endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
+            transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
+            anim.SetTrigger(moveHash);
+        }
+        else if (Input.GetKeyDown("right") && right)
+        {
+            GetComponent<Collider>().enabled = false;
+            inside = false;
+            right = false;
+            endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
+            transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
+            anim.SetTrigger(moveHash);
+        }
+        else
+        {
+            anim.SetTrigger(stopHash);
+        }
 
         if(transform.position.z >= endPos.z)
         {
@@ -91,7 +106,14 @@ public class PlayerController : MonoBehaviour {
     {
         if (other.tag == "Cube" || other.tag == "Sphere")
         {
-            inside = false;
+            if (other.transform.position.x < transform.position.x || other.transform.position.x > transform.position.x)
+            {
+                inside = false;
+                left = false;
+                right = false;
+               
+            }
+            
         }
     }
 
@@ -103,17 +125,35 @@ public class PlayerController : MonoBehaviour {
 
             if (other.transform.position.x > transform.position.x && other.GetComponent<Rigidbody>().velocity.x >= 0f)
             {
-                //do nothing
+                //do nothing if object is moving to the right away from player
             }
-            else
+            else if(other.transform.position.x < transform.position.x && other.GetComponent<Rigidbody>().velocity.x <= 0f)
             {
+                //do nothing if object is moving to the left away from player
+            }
+            else if (other.transform.position.x < transform.position.x && other.GetComponent<Rigidbody>().velocity.x <= 0f)
+            {
+                //do nothing if object is moving to the left away from player
+            }
+            else if (other.transform.position.x < transform.position.x && other.GetComponent<Rigidbody>().velocity.x >= 0f)
+            {
+                //object is moving towards player from the left
+                left = true;
                 inside = true;
-  
+
+            }
+            else if (other.transform.position.x > transform.position.x && other.GetComponent<Rigidbody>().velocity.x <= 0f)
+            {
+                //object is moving towards player from the right
+                right = true;
+                inside = true;
+
+
             }
 
-            
-            
-            
+
+
+
         }
     }
 }
