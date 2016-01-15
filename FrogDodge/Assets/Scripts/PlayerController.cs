@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
 	{
-        print(inside);
+        //print(inside);
         //print(endRotation.transform.rotation.x);
 
         //float moveHorizontal = Input.GetAxis("Horizontal");   
@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour {
         lerp += Time.deltaTime / duration;
 
        
-        if(Input.GetKeyDown("space") && inside)
+        if(Input.GetKeyDown("space"))
         {
 
             GetComponent<Collider>().enabled = false;

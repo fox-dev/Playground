@@ -3,8 +3,6 @@ using System.Collections;
 
 public class RoadObstacleSpawner : MonoBehaviour {
 
-    public GameObject[] roads;
-
     // Use this for initialization
     void Start()
     {
