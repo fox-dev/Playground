@@ -6,10 +6,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{693A2737-B353-90F8-C121-93C1BA9CDC29}</ProjectGuid>
+    <ProjectGuid>{D7577516-6EBE-C25F-2841-3D0EC39122A1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -45,17 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\GameController.cs" />
-     <Compile Include="Assets\Scripts\CameraScript.cs" />
-     <Compile Include="Assets\Scripts\DestroyByBoundary.cs" />
-     <Compile Include="Assets\Scripts\HitboxScript.cs" />
-     <Compile Include="Assets\Scripts\MenuScript.cs" />
-     <Compile Include="Assets\Scripts\Menu_DestroyByBoundary.cs" />
-     <Compile Include="Assets\Scripts\Menu_PlayerController.cs" />
-     <Compile Include="Assets\Scripts\MoveOnExit.cs" />
-     <Compile Include="Assets\Scripts\ObstacleMovement.cs" />
-     <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\RoadObstacleSpawner.cs" />
+     <Compile Include="Assets\Editor\CreatePlane.cs" />
      <None Include="Assets\EasyRoads3D Free\Shaders\EasyRoads3D-Surface.shader" />
      <None Include="Assets\EasyRoads3D Free\Shaders\EasyRoads3D Marker.shader" />
      <None Include="Assets\EasyRoads3D Free\Shaders\EasyRoads3D-Surface_Alpha.shader" />
@@ -63,12 +53,43 @@
      <None Include="Assets\EasyRoads3D Free\Shaders\EasyRoads3D-Normal-Diffuse.shader" />
      <None Include="Assets\EasyRoads3D Free\Shaders\Surface.shader" />
      <None Include="Assets\EasyRoads3D Free\Shaders\EasyRoads3D-Road-Edit-Mode.shader" />
+ <Reference Include="UnityEditor.Advertisements">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
+ </Reference>
+ <Reference Include="nunit.framework">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/nunit.framework.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.EditorTestsRunner">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/UnityEditor.EditorTestsRunner.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.Networking">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.TreeEditor">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Graphs">
+ <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Android.Extensions">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp.csproj">
+      <Project>{693A2737-B353-90F8-C121-93C1BA9CDC29}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

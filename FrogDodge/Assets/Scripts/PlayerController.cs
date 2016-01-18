@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
     public int rotationInDegrees;
 
     Animator anim;
+	private GameController gameController;
+	public int scoreValue;
 
     int moveHash = Animator.StringToHash("Roll");
     int stopHash = Animator.StringToHash("Stop");
@@ -34,6 +36,15 @@ public class PlayerController : MonoBehaviour {
         endRotation.transform.rotation = transform.rotation;
 
         anim = GetComponent<Animator>();
+
+		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
+		if (gameControllerObject != null) {
+			gameController = gameControllerObject.GetComponent<GameController> ();
+		}
+		if(gameController == null)
+		{
+			Debug.Log("Cannot find 'GameController' script");
+		}
 
     }
 
@@ -56,6 +67,7 @@ public class PlayerController : MonoBehaviour {
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
             transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
             anim.SetTrigger(moveHash);
+			gameController.addScore(scoreValue);
         }
 
         else if(Input.GetKeyDown("left") && left)
@@ -66,6 +78,7 @@ public class PlayerController : MonoBehaviour {
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
             transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
             anim.SetTrigger(moveHash);
+			gameController.addScore(scoreValue);
         }
         else if (Input.GetKeyDown("right") && right)
         {
@@ -75,6 +88,7 @@ public class PlayerController : MonoBehaviour {
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
             transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
             anim.SetTrigger(moveHash);
+			gameController.addScore(scoreValue);
         }
         else
         {
@@ -100,9 +114,15 @@ public class PlayerController : MonoBehaviour {
         //rg.velocity = movement * speed;
     }
 
-   
+	/*void OnCollisionEnter(Collision collision) 
+	{
+		if (collision.gameObject.tag == "Cube" || collision.gameObject.tag == "Sphere") 
+		{
+			Destroy (gameObject);
+		}
+	}*/
 
-    void OnTriggerExit(Collider other)
+   	void OnTriggerExit(Collider other)
     {
         if (other.tag == "Cube" || other.tag == "Sphere")
         {
