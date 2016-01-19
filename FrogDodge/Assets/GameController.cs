@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -22,8 +23,20 @@ public class GameController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update () 
+	{
+		if (gameOver) {
+			restartText.text = "Press 'R' to Restart";
+			restart = true;
+		}
+
+		if(restart)
+		{
+			if(Input.GetKeyDown(KeyCode.R))
+			{
+				SceneManager.LoadScene ("Main");
+			}
+		}
 	}
 
 	void UpdateScore()

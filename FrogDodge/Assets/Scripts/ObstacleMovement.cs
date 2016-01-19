@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ObstacleMovement : MonoBehaviour {
+public class ObstacleMovement : MonoBehaviour 
+{
 
     
     public float moveSpeed;
@@ -10,10 +11,21 @@ public class ObstacleMovement : MonoBehaviour {
     public Vector3 startPos;
     public Quaternion startRot;
 
+	private GameController gameController;
+
     void Start()
     {
         startPos = transform.position;
         startRot = transform.rotation;
+
+		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
+		if (gameControllerObject != null) {
+			gameController = gameControllerObject.GetComponent<GameController> ();
+		}
+		if(gameController == null)
+		{
+			Debug.Log("Cannot find 'GameController' script");
+		}
 
     }
 
@@ -44,5 +56,13 @@ public class ObstacleMovement : MonoBehaviour {
         GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
     }
 
+	void OnTriggerEnter(Collider other) 
+	{
+		if (other.tag == "Player") 
+		{
+			gameController.GameOver();
+			Destroy(other.gameObject);
+		}
+	}
  
 }

@@ -114,66 +114,22 @@ public class PlayerController : MonoBehaviour {
         //rg.velocity = movement * speed;
     }
 
-	/*void OnCollisionEnter(Collision collision) 
+	public void insideLeft()
 	{
-		if (collision.gameObject.tag == "Cube" || collision.gameObject.tag == "Sphere") 
-		{
-			Destroy (gameObject);
-		}
-	}*/
+		inside = true;
+		left = true;
+	}
 
-   	void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Cube" || other.tag == "Sphere")
-        {
-            if (other.transform.position.x < transform.position.x || other.transform.position.x > transform.position.x)
-            {
-                inside = false;
-                left = false;
-                right = false;
-               
-            }
-            
-        }
-    }
+	public void insideRight()
+	{
+		inside = true;
+		right = true;
+	}
 
-    void OnTriggerStay(Collider other)
-    {
-        
-        if (other.tag == "Cube" || other.tag == "Sphere")
-        {
-
-            if (other.transform.position.x > transform.position.x && other.GetComponent<Rigidbody>().velocity.x >= 0f)
-            {
-                //do nothing if object is moving to the right away from player
-            }
-            else if(other.transform.position.x < transform.position.x && other.GetComponent<Rigidbody>().velocity.x <= 0f)
-            {
-                //do nothing if object is moving to the left away from player
-            }
-            else if (other.transform.position.x < transform.position.x && other.GetComponent<Rigidbody>().velocity.x <= 0f)
-            {
-                //do nothing if object is moving to the left away from player
-            }
-            else if (other.transform.position.x < transform.position.x && other.GetComponent<Rigidbody>().velocity.x >= 0f)
-            {
-                //object is moving towards player from the left
-                left = true;
-                inside = true;
-
-            }
-            else if (other.transform.position.x > transform.position.x && other.GetComponent<Rigidbody>().velocity.x <= 0f)
-            {
-                //object is moving towards player from the right
-                right = true;
-                inside = true;
-
-
-            }
-
-
-
-
-        }
-    }
+	public void objectExit()
+	{
+		inside = false;
+		left = false;
+		right = false;
+	}
 }
