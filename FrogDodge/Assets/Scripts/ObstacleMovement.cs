@@ -80,8 +80,6 @@ public class ObstacleMovement : MonoBehaviour
 		if (other.tag == "Player") 
 		{
             
-         
-           
 
             if (other.transform.position.x > transform.position.x && GetComponent<Rigidbody>().velocity.x >= 0f)
             {

@@ -12,6 +12,8 @@ public class GameController : MonoBehaviour {
 	private bool gameOver;
 	private bool restart;
 
+    BGM audioManager;
+
 	// Use this for initialization
 	void Start () {
 		score = 0;
@@ -19,8 +21,19 @@ public class GameController : MonoBehaviour {
 		restart = false;
 		restartText.text = "";
 		gameOverText.text = "";
-	
-	}
+
+        GameObject audioObject = GameObject.FindWithTag("Audio");
+
+        if (audioObject != null)
+        {
+            audioManager = audioObject.GetComponent<BGM>();
+        }
+        if (audioManager == null)
+        {
+            Debug.Log("Cannot find 'BGM' script");
+        }
+
+    }
 	
 	// Update is called once per frame
 	void Update () 
@@ -53,8 +66,14 @@ public class GameController : MonoBehaviour {
 	public void GameOver()
 	{
 		gameOverText.text = "Game Over";
+        audioManager.GameOverMusic();
 		gameOver = true;
 	}	
+
+    public bool gameEnded()
+    {
+        return gameOver;
+    }
 
 
 }
