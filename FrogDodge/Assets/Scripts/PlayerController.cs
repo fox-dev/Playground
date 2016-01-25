@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-    bool inside,left,right;
+    public int inside,left,right = 0;
     ArrayList obstacles;
 
 
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
 
     void Start()
     {
-        inside = false;
+        inside = 0;
         obstacles = new ArrayList();
         startPos = transform.position;
         endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
 	{
-        //print(inside);
+        print(inside + " " + left + " " + right);
         //print(endRotation.transform.rotation.x);
 
         //float moveHorizontal = Input.GetAxis("Horizontal");   
@@ -62,29 +62,24 @@ public class PlayerController : MonoBehaviour {
         if(Input.GetKeyDown("space"))
         {
 
-            GetComponent<Collider>().enabled = false;
-            inside = false;
+            //GetComponent<Collider>().enabled = false;
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
             transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
             anim.SetTrigger(moveHash);
 			gameController.addScore(scoreValue);
         }
 
-        else if(Input.GetKeyDown("left") && left)
+        else if(Input.GetKeyDown("left") && left > 0)
         {
-            GetComponent<Collider>().enabled = false;
-            inside = false;
-            left = false;
+            //GetComponent<Collider>().enabled = false;
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
             transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
             anim.SetTrigger(moveHash);
 			gameController.addScore(scoreValue);
         }
-        else if (Input.GetKeyDown("right") && right)
+        else if (Input.GetKeyDown("right") && right > 0)
         {
-            GetComponent<Collider>().enabled = false;
-            inside = false;
-            right = false;
+            //GetComponent<Collider>().enabled = false;
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
             transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
             anim.SetTrigger(moveHash);
@@ -97,7 +92,7 @@ public class PlayerController : MonoBehaviour {
 
         if(transform.position.z >= endPos.z)
         {
-            GetComponent<Collider>().enabled = true;
+           GetComponent<Collider>().enabled = true;
         }
       
 
@@ -116,20 +111,30 @@ public class PlayerController : MonoBehaviour {
 
 	public void insideLeft()
 	{
-		inside = true;
-		left = true;
+		inside++;
+		left++;
 	}
 
 	public void insideRight()
 	{
-		inside = true;
-		right = true;
+		inside++;
+		right++;
 	}
 
-	public void objectExit()
-	{
-		inside = false;
-		left = false;
-		right = false;
-	}
+    public void objectExitLeft()
+    {
+        inside--;
+        left--;
+
+    }
+
+    public void objectExitRight()
+    {
+        inside--;
+        right--;
+
+    }
+
+  
+
 }

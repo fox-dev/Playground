@@ -24,16 +24,13 @@ public class HitboxScript : MonoBehaviour {
 	{
 		if (other.tag == "Cube" || other.tag == "Sphere")
 		{
-			if (other.transform.position.x < transform.position.x || other.transform.position.x > transform.position.x)
-			{
-				pc.objectExit();
 
-			}
-
+           // pc.objectExit();
+          
 		}
 	}
 
-	void OnTriggerStay(Collider other)
+	void OnTriggerEnter(Collider other)
 	{
 
 		if (other.tag == "Cube" || other.tag == "Sphere")
@@ -54,13 +51,13 @@ public class HitboxScript : MonoBehaviour {
 			else if (other.transform.position.x < transform.position.x && other.GetComponent<Rigidbody>().velocity.x >= 0f)
 			{
 				//object is moving towards player from the left
-				pc.insideLeft();
+				//pc.insideLeft();
 
 			}
 			else if (other.transform.position.x > transform.position.x && other.GetComponent<Rigidbody>().velocity.x <= 0f)
 			{
 				//object is moving towards player from the right
-				pc.insideRight();
+				//pc.insideRight();
 
 
 			}

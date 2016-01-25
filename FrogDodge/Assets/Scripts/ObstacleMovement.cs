@@ -13,13 +13,30 @@ public class ObstacleMovement : MonoBehaviour
 
 	private GameController gameController;
 
+    private PlayerController frog;
+  
+
     void Start()
     {
         startPos = transform.position;
         startRot = transform.rotation;
 
+        GameObject pc = GameObject.FindWithTag("Player");
+
 		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
-		if (gameControllerObject != null) {
+
+        if (pc != null)
+        {
+            frog = pc.GetComponent<PlayerController>();
+        }
+        if (gameController == null)
+        {
+            Debug.Log("Cannot find 'PlayertController' script");
+        }
+
+
+
+        if (gameControllerObject != null) {
 			gameController = gameControllerObject.GetComponent<GameController> ();
 		}
 		if(gameController == null)
@@ -32,7 +49,9 @@ public class ObstacleMovement : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
+
         
+
         if (GetComponent<Rigidbody>().velocity.magnitude < maxSpeed)
         {
             GetComponent<Rigidbody>().AddForce(new Vector3(1, 0, 0) * moveSpeed);
@@ -48,7 +67,7 @@ public class ObstacleMovement : MonoBehaviour
 
     void Reset()
     {
-        print("RESET");
+        //print("RESET");
         transform.position = new Vector3(startPos.x, startPos.y, transform.position.z);
         transform.rotation = Quaternion.Euler(new Vector3(startRot.x, startRot.y, startRot.z));
 
@@ -60,9 +79,36 @@ public class ObstacleMovement : MonoBehaviour
 	{
 		if (other.tag == "Player") 
 		{
-			gameController.GameOver();
-			Destroy(other.gameObject);
+            //gameController.GameOver();
+            //Destroy(other.gameObject);
+
+            if (other.transform.position.x > transform.position.x && GetComponent<Rigidbody>().velocity.x >= 0f)
+            {
+                frog.insideLeft();
+            }
+            else if(other.transform.position.x < transform.position.x && GetComponent<Rigidbody>().velocity.x <= 0f)
+            {
+                frog.insideRight();
+            }
 		}
 	}
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+
+            if (other.transform.position.x > transform.position.x && GetComponent<Rigidbody>().velocity.x >= 0f)
+            {
+                frog.objectExitLeft();
+            }
+            else if (other.transform.position.x < transform.position.x && GetComponent<Rigidbody>().velocity.x <= 0f)
+            {
+                frog.objectExitRight();
+            }
+
+
+        }
+    }
  
 }
