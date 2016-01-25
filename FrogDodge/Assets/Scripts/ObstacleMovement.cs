@@ -79,8 +79,9 @@ public class ObstacleMovement : MonoBehaviour
 	{
 		if (other.tag == "Player") 
 		{
-            //gameController.GameOver();
-            //Destroy(other.gameObject);
+            
+         
+           
 
             if (other.transform.position.x > transform.position.x && GetComponent<Rigidbody>().velocity.x >= 0f)
             {
@@ -108,6 +109,27 @@ public class ObstacleMovement : MonoBehaviour
             }
 
 
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.tag == "Player")
+        {
+            destroyPlayer();
+            gameController.GameOver();
+        }
+     
+    }
+
+    void destroyPlayer()
+    {
+        frog.GetComponent<MeshRenderer>().enabled = false;
+        Renderer[] renderers = frog.GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer r in renderers)
+        {
+            r.enabled = false;
         }
     }
  
