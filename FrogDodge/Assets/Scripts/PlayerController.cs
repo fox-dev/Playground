@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
 	{
-        print(inside + " " + left + " " + right);
+        //print(inside + " " + left + " " + right);
         //print(endRotation.transform.rotation.x);
 
         //float moveHorizontal = Input.GetAxis("Horizontal");   

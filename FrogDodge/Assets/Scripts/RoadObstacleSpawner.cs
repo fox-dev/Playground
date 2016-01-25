@@ -6,8 +6,43 @@ public class RoadObstacleSpawner : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        
-       // Instantiate(obstacle, new Vector3(transform.position.x - 8f, 0.525f, transform.position.z), Quaternion.identity);
+        // Instantiate(obstacle, new Vector3(transform.position.x - 8f, 0.525f, transform.position.z), Quaternion.identity);
+
+
+        Rigidbody[] obstacles = GetComponentsInChildren<Rigidbody>();
+
+        foreach (Rigidbody r in obstacles)
+        {
+            r.velocity = Vector3.zero;
+            r.angularVelocity = Vector3.zero;
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        print(other.tag);
+        if (other.tag == "Player")
+        {
+            Rigidbody[] obstacles = GetComponentsInChildren<Rigidbody>();
+
+            foreach (Rigidbody r in obstacles)
+            {
+                if (r.tag == "Cube")
+                {
+                    r.velocity = new Vector3(4, 0, 0);
+                }
+
+                if (r.tag == "Sphere")
+                {
+                    r.velocity = new Vector3(-4, 0, 0);
+                }
+
+
+ 
+               
+            }
+
+        }
     }
     void OnTriggerExit(Collider other)
     {

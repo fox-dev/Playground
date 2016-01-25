@@ -18,6 +18,7 @@ public class ObstacleMovement : MonoBehaviour
 
     void Start()
     {
+        moveSpeed = 0;
         startPos = transform.position;
         startRot = transform.rotation;
 
