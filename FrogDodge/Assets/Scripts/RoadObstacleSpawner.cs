@@ -20,7 +20,6 @@ public class RoadObstacleSpawner : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        print(other.tag);
         if (other.tag == "Player")
         {
             Rigidbody[] obstacles = GetComponentsInChildren<Rigidbody>();

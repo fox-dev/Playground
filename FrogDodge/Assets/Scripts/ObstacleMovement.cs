@@ -30,7 +30,7 @@ public class ObstacleMovement : MonoBehaviour
         {
             frog = pc.GetComponent<PlayerController>();
         }
-        if (gameController == null)
+        if (frog == null)
         {
             Debug.Log("Cannot find 'PlayertController' script");
         }
