@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour {
 		{
 			if(Input.GetKeyDown(KeyCode.R))
 			{
-				SceneManager.LoadScene ("Main");
+				SceneManager.LoadScene ("NewMain");
 			}
 		}
 	}

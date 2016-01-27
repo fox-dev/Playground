@@ -28,12 +28,12 @@ public class RoadObstacleSpawner : MonoBehaviour {
             {
                 if (r.tag == "Cube")
                 {
-                    r.velocity = new Vector3(4, 0, 0);
+                    r.velocity = new Vector3(30, 0, 0);
                 }
 
                 if (r.tag == "Sphere")
                 {
-                    r.velocity = new Vector3(-4, 0, 0);
+                    r.velocity = new Vector3(-30, 0, 0);
                 }
 
 
@@ -61,11 +61,11 @@ public class RoadObstacleSpawner : MonoBehaviour {
         {
             if (other.GetComponent<Rigidbody>().velocity.x > 0)
             {
-                other.transform.position = new Vector3(-20, 0, other.transform.position.z);
+                other.transform.position = new Vector3(-(GetComponent<BoxCollider>().size.x / 2 - other.GetComponent<BoxCollider>().size.x / 2) - other.GetComponent<BoxCollider>().size.x, 1, other.transform.position.z);
             }
             else
             {
-                other.transform.position = new Vector3(20, 0, other.transform.position.z);
+                other.transform.position = new Vector3((GetComponent<BoxCollider>().size.x/2 + other.GetComponent<BoxCollider>().size.x/2),0, other.transform.position.z);
             }
         }
 

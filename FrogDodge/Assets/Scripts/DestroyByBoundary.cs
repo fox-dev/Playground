@@ -23,7 +23,7 @@ public class DestroyByBoundary : MonoBehaviour {
     void Update()
     {
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
-        print(frontRoad.name);
+        //print(frontRoad.name);
  
     }
 

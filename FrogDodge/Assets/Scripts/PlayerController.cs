@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
 	{
-        print("")
+        print(endPos.z);
         //print(inside + " " + left + " " + right);
         //print(endRotation.transform.rotation.x);
 
@@ -60,17 +60,17 @@ public class PlayerController : MonoBehaviour {
         lerp += Time.deltaTime / duration;
 
        
-        if(Input.GetKeyDown("space"))
+        if(Input.GetKeyDown("space")  && endPos.z == transform.position.z)
         {
 
             //GetComponent<Collider>().enabled = false;
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
             transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
            // anim.SetTrigger(moveHash);
-			//gameController.addScore(scoreValue);
+			gameController.addScore(scoreValue);
         }
 
-        else if(Input.GetKeyDown("left") && left > 0)
+        else if(Input.GetKeyDown("left" ) && left > 0 && endPos.z == transform.position.z)
         {
             //GetComponent<Collider>().enabled = false;
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour {
            // anim.SetTrigger(moveHash);
 			gameController.addScore(scoreValue);
         }
-        else if (Input.GetKeyDown("right") && right > 0)
+        else if (Input.GetKeyDown("right") && right > 0 && endPos.z == transform.position.z)
         {
             //GetComponent<Collider>().enabled = false;
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);

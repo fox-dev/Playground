@@ -18,7 +18,9 @@ public class ObstacleMovement : MonoBehaviour
 
     void Start()
     {
+        //To 0 velocity all obstacles till player reaches trigger
         moveSpeed = 0;
+        
         startPos = transform.position;
         startRot = transform.rotation;
 
@@ -32,7 +34,7 @@ public class ObstacleMovement : MonoBehaviour
         }
         if (frog == null)
         {
-            Debug.Log("Cannot find 'PlayertController' script");
+            Debug.Log("Cannot find 'PlayerController' script");
         }
 
 
@@ -49,11 +51,11 @@ public class ObstacleMovement : MonoBehaviour
 
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
         
 
-        if (GetComponent<Rigidbody>().velocity.magnitude < maxSpeed)
+        if (GetComponent<Rigidbody>().velocity.magnitude <= maxSpeed)
         {
             GetComponent<Rigidbody>().AddForce(new Vector3(1, 0, 0) * moveSpeed);
 
@@ -123,7 +125,8 @@ public class ObstacleMovement : MonoBehaviour
 
     void destroyPlayer()
     {
-        frog.GetComponent<MeshRenderer>().enabled = false;
+        //frog.gameObject.SetActive(false);
+        //frog.GetComponent<MeshRenderer>().enabled = false;
         Renderer[] renderers = frog.GetComponentsInChildren<Renderer>();
 
         foreach (Renderer r in renderers)
