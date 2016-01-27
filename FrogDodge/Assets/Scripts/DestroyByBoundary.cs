@@ -7,7 +7,7 @@ public class DestroyByBoundary : MonoBehaviour {
 
 	Rigidbody rg;
     public GameObject player;
-    public GameObject backRoad;
+    public GameObject backRoad, frontRoad;
     public GameObject[] roads;
     public List<GameObject> disabledRoads;
     
@@ -23,15 +23,26 @@ public class DestroyByBoundary : MonoBehaviour {
     void Update()
     {
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+        print(frontRoad.name);
  
     }
 
-	void OnTriggerExit(Collider other)
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Road")
+        {
+            frontRoad = other.gameObject;
+        }
+    }
+
+
+    void OnTriggerExit(Collider other)
 	{
         if (other.tag == "Road")
         {
             backRoad = other.gameObject;
 
+            //Disabled road count is 1 to reflect 5 roads with the current Boundary size.
             if (disabledRoads.Count <= 1)
             {
                 other.gameObject.SetActive(false);
@@ -45,10 +56,11 @@ public class DestroyByBoundary : MonoBehaviour {
                 disabledRoads.Remove(temp);
                 PrefabUtility.ResetToPrefabState(temp);
                 temp.SetActive(true);
-                temp.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, backRoad.transform.position.z + 30);
+                //Get front road's position and attach the next road right after it; frontroad size is handled accordingly.
+                temp.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider>().size.z);
             }
             // other.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 40);
-            if (other.name == "Road 1")
+           // if (other.name == "Road 1")
             {
                
                 //Move the obstacles on that road when the road moves
