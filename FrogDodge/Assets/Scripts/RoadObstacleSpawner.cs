@@ -50,7 +50,7 @@ public class RoadObstacleSpawner : MonoBehaviour {
         {
             if(other.GetComponent<Rigidbody>().velocity.x > 0)
             {
-                other.transform.position = new Vector3(-20, 0, other.transform.position.z);
+                other.transform.position = new Vector3(-(GetComponent<BoxCollider>().size.x/2 - other.GetComponent<BoxCollider>().size.x/2) - other.GetComponent<BoxCollider>().size.x, 1, other.transform.position.z);
             }
             else
             {
