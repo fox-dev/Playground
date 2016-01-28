@@ -21,8 +21,10 @@ public class PlayerController : MonoBehaviour {
 	private GameController gameController;
 	public int scoreValue;
 
-    int moveHash = Animator.StringToHash("Roll");
-    int stopHash = Animator.StringToHash("Stop");
+    //int moveHash = Animator.StringToHash("Roll");
+    //int stopHash = Animator.StringToHash("Stop");
+    int moveHash = Animator.StringToHash("Jump");
+    int stopHash = Animator.StringToHash("Idle");
 
     void Start()
     {
@@ -35,7 +37,7 @@ public class PlayerController : MonoBehaviour {
         endRotation = new GameObject();
         endRotation.transform.rotation = transform.rotation;
 
-        //anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
 
 		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
 		if (gameControllerObject != null) {
@@ -66,7 +68,7 @@ public class PlayerController : MonoBehaviour {
             //GetComponent<Collider>().enabled = false;
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
             transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
-           // anim.SetTrigger(moveHash);
+            anim.SetTrigger(moveHash);
 			gameController.addScore(scoreValue);
         }
 
@@ -75,7 +77,7 @@ public class PlayerController : MonoBehaviour {
             //GetComponent<Collider>().enabled = false;
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
             transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
-           // anim.SetTrigger(moveHash);
+            anim.SetTrigger(moveHash);
 			gameController.addScore(scoreValue);
         }
         else if (Input.GetKeyDown("right") && right > 0 && endPos.z == transform.position.z)
@@ -83,12 +85,12 @@ public class PlayerController : MonoBehaviour {
             //GetComponent<Collider>().enabled = false;
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
             transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
-            //anim.SetTrigger(moveHash);
+            anim.SetTrigger(moveHash);
 			gameController.addScore(scoreValue);
         }
         else
         {
-           // anim.SetTrigger(stopHash);
+            anim.SetTrigger(stopHash);
         }
 
         if(transform.position.z >= endPos.z)
