@@ -7,6 +7,8 @@ public class ObstacleMovement : MonoBehaviour
     
     public float moveSpeed;
     public float maxSpeed;
+	private float acceleration;
+	public float velocity;
 
     public Vector3 startPos;
     public Quaternion startRot;
@@ -20,6 +22,7 @@ public class ObstacleMovement : MonoBehaviour
     {
         //To 0 velocity all obstacles till player reaches trigger
         moveSpeed = 0;
+		acceleration = 10;
         
         startPos = transform.position;
         startRot = transform.rotation;
@@ -54,13 +57,19 @@ public class ObstacleMovement : MonoBehaviour
 	void FixedUpdate () {
 
         
-
-        if (GetComponent<Rigidbody>().velocity.magnitude <= maxSpeed)
+		//accelerates the obstacle when in ready state until obstacle reaches max speed.
+		if (GetComponent<Rigidbody>().velocity.magnitude <= maxSpeed && GetComponent<Rigidbody>().velocity.magnitude != 0)
         {
-            GetComponent<Rigidbody>().AddForce(new Vector3(1, 0, 0) * moveSpeed);
-
+            //GetComponent<Rigidbody>().AddForce(new Vector3(acceleration, 0, 0) * moveSpeed );
+			moveSpeed += acceleration; 
+			if (GetComponent<Rigidbody> ().velocity.x > 0) {
+				GetComponent<Rigidbody> ().velocity = new Vector3 (moveSpeed, 0, 0);
+			} else {
+				GetComponent<Rigidbody> ().velocity = new Vector3 (-moveSpeed, 0, 0);
+			}
         }
 
+		velocity = GetComponent<Rigidbody> ().velocity.magnitude;
 	}
 
     void OnDisable()

@@ -18,7 +18,8 @@ public class RoadObstacleSpawner : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    // On entering collider of next road, 
+	void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
@@ -26,17 +27,18 @@ public class RoadObstacleSpawner : MonoBehaviour {
 
             foreach (Rigidbody r in obstacles)
             {
-                if (r.tag == "Cube")
+                /*if (r.tag == "Cube")
                 {
                     r.velocity = new Vector3(30, 0, 0);
+
                 }
 
                 if (r.tag == "Sphere")
                 {
                     r.velocity = new Vector3(-30, 0, 0);
-                }
+                }*/
 
-
+				r.velocity = new Vector3 (1, 0, 0); // Sets obstacles into ready state to be moved.
  
                
             }
