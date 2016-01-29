@@ -27,20 +27,17 @@ public class RoadObstacleSpawner : MonoBehaviour {
 
             foreach (Rigidbody r in obstacles)
             {
-                /*if (r.tag == "Cube")
+                if (r.tag == "Cube")
                 {
-                    r.velocity = new Vector3(30, 0, 0);
+                    r.velocity = new Vector3(1, 0, 0); // Sets obstacles into ready state to be moved.
 
                 }
 
                 if (r.tag == "Sphere")
                 {
-                    r.velocity = new Vector3(-30, 0, 0);
-                }*/
+                    r.velocity = new Vector3(-1, 0, 0); // Sets obstacles into ready state to be moved.
+                }
 
-				r.velocity = new Vector3 (1, 0, 0); // Sets obstacles into ready state to be moved.
- 
-               
             }
 
         }
@@ -48,26 +45,42 @@ public class RoadObstacleSpawner : MonoBehaviour {
     void OnTriggerExit(Collider other)
     {
 
+        
         if (other.tag == "Cube")
         {
             if(other.GetComponent<Rigidbody>().velocity.x > 0)
             {
-                other.transform.position = new Vector3(-(GetComponent<BoxCollider>().size.x/2 - other.GetComponent<BoxCollider>().size.x/2) - other.GetComponent<BoxCollider>().size.x, 1, other.transform.position.z);
+                
+                other.transform.position = new Vector3(-(GetComponent<BoxCollider>().size.x/2 - other.GetComponent<BoxCollider>().size.x/2) - other.GetComponent<BoxCollider>().size.x - 1, other.transform.position.y, other.transform.position.z);
+            }
+            else if (other.GetComponent<Rigidbody>().velocity.x < 0)
+            {
+
+                other.transform.position = new Vector3((GetComponent<BoxCollider>().size.x/2 + other.GetComponent<BoxCollider>().size.x / 2) + 1, other.transform.position.y, other.transform.position.z);
+
             }
             else
             {
-                other.transform.position = new Vector3(20, 0, other.transform.position.z);
+                //do nothing if 0 to not interfere with obstacleobject reset()
             }
         }
         else if(other.tag == "Sphere")
         {
-            if (other.GetComponent<Rigidbody>().velocity.x > 0)
+            if (other.GetComponent<Rigidbody>().velocity.x <= 0)
             {
-                other.transform.position = new Vector3(-(GetComponent<BoxCollider>().size.x / 2 - other.GetComponent<BoxCollider>().size.x / 2) - other.GetComponent<BoxCollider>().size.x, 1, other.transform.position.z);
+
+                other.transform.position = new Vector3((GetComponent<BoxCollider>().size.x/2 + other.GetComponent<BoxCollider>().size.x/2) + 1, other.transform.position.y, other.transform.position.z);
+
             }
-            else
+
+            else if(other.GetComponent<Rigidbody>().velocity.x > 0)
             {
-                other.transform.position = new Vector3((GetComponent<BoxCollider>().size.x/2 + other.GetComponent<BoxCollider>().size.x/2),0, other.transform.position.z);
+
+                other.transform.position = new Vector3(-(GetComponent<BoxCollider>().size.x / 2 - other.GetComponent<BoxCollider>().size.x / 2) - other.GetComponent<BoxCollider>().size.x - 1, other.transform.position.y, other.transform.position.z);
+            }
+             else
+            {
+                //do nothing if 0 to not interfere with obstacleobject reset() 
             }
         }
 

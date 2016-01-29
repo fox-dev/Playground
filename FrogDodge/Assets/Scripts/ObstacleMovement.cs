@@ -61,7 +61,7 @@ public class ObstacleMovement : MonoBehaviour
 		if (GetComponent<Rigidbody>().velocity.magnitude <= maxSpeed && GetComponent<Rigidbody>().velocity.magnitude != 0)
         {
             //GetComponent<Rigidbody>().AddForce(new Vector3(acceleration, 0, 0) * moveSpeed );
-			moveSpeed += acceleration; 
+			moveSpeed = 40; 
 			if (GetComponent<Rigidbody> ().velocity.x > 0) {
 				GetComponent<Rigidbody> ().velocity = new Vector3 (moveSpeed, 0, 0);
 			} else {
@@ -75,6 +75,13 @@ public class ObstacleMovement : MonoBehaviour
     void OnDisable()
     {
         Reset();
+
+    }
+
+    void OnEnable()
+    {
+        //Reset();
+        
     }
 
     void Reset()
