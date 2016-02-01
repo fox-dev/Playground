@@ -22,7 +22,7 @@ public class ObstacleMovement : MonoBehaviour
     {
         //To 0 velocity all obstacles till player reaches trigger
         moveSpeed = 0;
-		acceleration = 10;
+		acceleration = 5;
         
         startPos = transform.position;
         startRot = transform.rotation;
@@ -58,10 +58,10 @@ public class ObstacleMovement : MonoBehaviour
 
         
 		//accelerates the obstacle when in ready state until obstacle reaches max speed.
-		if (GetComponent<Rigidbody>().velocity.magnitude <= maxSpeed && GetComponent<Rigidbody>().velocity.magnitude != 0)
+		if (moveSpeed < maxSpeed && GetComponent<Rigidbody>().velocity.magnitude != 0)
         {
             //GetComponent<Rigidbody>().AddForce(new Vector3(acceleration, 0, 0) * moveSpeed );
-			moveSpeed = 40; 
+			moveSpeed += acceleration; 
 			if (GetComponent<Rigidbody> ().velocity.x > 0) {
 				GetComponent<Rigidbody> ().velocity = new Vector3 (moveSpeed, 0, 0);
 			} else {
