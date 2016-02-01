@@ -8,8 +8,10 @@ public class DestroyByBoundary : MonoBehaviour {
 	Rigidbody rg;
     public GameObject player;
     public GameObject backRoad, frontRoad;
+	public GameObject temp;
 	public List<GameObject> set1;
-    public List<GameObject> disabledRoads;
+	private List<List<GameObject>> disabledRoadList;
+	private List<GameObject> disabledRoads;
 	public List<GameObject> currentList;
 	private List<List <GameObject>> roadLists;
 	private IEnumerator<GameObject> enumerator;
@@ -17,7 +19,8 @@ public class DestroyByBoundary : MonoBehaviour {
 
     void Start()
     {
-        disabledRoads = new List<GameObject>();
+        //disabledRoads = new List<GameObject>();
+		roadLists = new List<List<GameObject>>();
 		roadLists.Add(set1);
 		currentList = roadLists[0];
 		enumerator = currentList.GetEnumerator();
@@ -43,22 +46,37 @@ public class DestroyByBoundary : MonoBehaviour {
 
     void OnTriggerExit(Collider other)
 	{
-		if (other.tag == "Road") 
-		{
-			Vector3 frontPosition = new Vector3(other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider>().size.z);
-			if (enumerator.MoveNext ()) {
-				
+		if (other.tag == "Road") {
+			Vector3 frontPosition = new Vector3 (other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider> ().size.z);
+			if (roadLists.Count >= 0) {
+				if (enumerator.MoveNext ()) {
+					print ("Has Next");
+				} else {
+					roadLists.Remove(currentList);
+					currentList = roadLists [Random.Range (0, roadLists.Count)];
+					enumerator = currentList.GetEnumerator ();
+					enumerator.MoveNext ();
+					disabledRoadList.Add (disabledRoads);
+					disabledRoads = new List<GameObject> ();
+				}
+				Instantiate (enumerator.Current, frontPosition, Quaternion.identity);
+				other.gameObject.SetActive (false);
+				disabledRoads.Add (other.gameObject);
+			} else {
+				if (enumerator.MoveNext ()) {
+					print ("Has Next");
+				} else {
+					currentList = disabledRoadList [Random.Range (0, disabledRoadList.Count)];
+					enumerator = currentList.GetEnumerator ();
+					enumerator.MoveNext ();
+				}
+				other.gameObject.SetActive (false);
+				PrefabUtility.ResetToPrefabState (enumerator.Current);
+				enumerator.Current.SetActive (true);
+				//Get front road's position and attach the next road right after it; frontroad size is handled accordingly.
+				enumerator.Current.transform.position = new Vector3 (other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider> ().size.z);
+		
 			}
-			else{
-				currentList = roadLists [Random.Range (0, roadLists.Count)];
-				enumerator = currentList.GetEnumerator();
-				enumerator.MoveNext();
-			}
-			Instantiate (enumerator.Current, frontPosition, Quaternion.identity);
-			Destroy(other.gameObject);
-
-			
-
 		}
 
 		/*
@@ -83,7 +101,7 @@ public class DestroyByBoundary : MonoBehaviour {
                 //Get front road's position and attach the next road right after it; frontroad size is handled accordingly.
                 temp.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider>().size.z);
             }
-           */
+      */
             // other.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z + 40);
            // if (other.name == "Road 1")
            // {
