@@ -92,6 +92,8 @@ public class ObstacleMovement : MonoBehaviour
 
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+
+		moveSpeed = 0;
     }
 
 	void OnTriggerEnter(Collider other) 

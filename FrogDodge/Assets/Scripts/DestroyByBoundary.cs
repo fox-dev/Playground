@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,9 +14,6 @@ public class DestroyByBoundary : MonoBehaviour {
 	public List<GameObject> currentList;
 	private List<List <GameObject>> roadLists;
 	private IEnumerator<GameObject> enumerator;
-
-	public int listSize;
-
 
     void Start()
     {
@@ -50,23 +47,25 @@ public class DestroyByBoundary : MonoBehaviour {
 	{
 		if (other.tag == "Road") {
 			Vector3 frontPosition = new Vector3 (other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider> ().size.z);
-			if (roadLists.Count > 0) {
-				if (enumerator.MoveNext ()) {
-					other.gameObject.SetActive (false);
-					disabledRoads.Add (other.gameObject);
 
+			other.gameObject.SetActive (false);
+
+			if (roadLists.Count > 0) 
+			{
+				
+				disabledRoads.Add (other.gameObject);
+
+				if (enumerator.MoveNext ()) {
+					
 					Instantiate (enumerator.Current, frontPosition, Quaternion.identity);
 
 				} else {
 					roadLists.Remove(currentList);
-					listSize = roadLists.Count;
-					if (roadLists.Count > 0) {
-						
-						other.gameObject.SetActive (false);
-						disabledRoads.Add (other.gameObject);
 
-						disabledRoadList.Add(disabledRoads);
-						disabledRoads = new List<GameObject> ();
+					disabledRoadList.Add(disabledRoads);
+					disabledRoads = new List<GameObject> ();
+
+					if (roadLists.Count > 0) {
 
 						currentList = roadLists [Random.Range (0, roadLists.Count)];
 						enumerator = currentList.GetEnumerator ();
@@ -74,11 +73,7 @@ public class DestroyByBoundary : MonoBehaviour {
 
 						Instantiate (enumerator.Current, frontPosition, Quaternion.identity);
 					} else {
-						other.gameObject.SetActive (false);
-						disabledRoads.Add (other.gameObject);
-
-						disabledRoadList.Add(disabledRoads);
-						disabledRoads = new List<GameObject> ();
+						
 						currentList = disabledRoadList [Random.Range (0, disabledRoadList.Count)];
 						enumerator = currentList.GetEnumerator ();
 						enumerator.MoveNext();
@@ -94,7 +89,6 @@ public class DestroyByBoundary : MonoBehaviour {
 					enumerator = currentList.GetEnumerator ();
 					enumerator.MoveNext ();
 				}
-				other.gameObject.SetActive (false);
 				PrefabUtility.ResetToPrefabState (enumerator.Current);
 				enumerator.Current.SetActive (true);
 				//Get front road's position and attach the next road right after it; frontroad size is handled accordingly.
