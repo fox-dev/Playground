@@ -8,18 +8,19 @@ public class DestroyByBoundary : MonoBehaviour {
 	Rigidbody rg;
     public GameObject player;
     public GameObject backRoad, frontRoad;
-	public GameObject temp;
 	public List<GameObject> set1;
 	private List<List<GameObject>> disabledRoadList;
-	private List<GameObject> disabledRoads;
+	public List<GameObject> disabledRoads;
 	public List<GameObject> currentList;
 	private List<List <GameObject>> roadLists;
 	private IEnumerator<GameObject> enumerator;
 
+	public int listSize;
+
 
     void Start()
     {
-        //disabledRoads = new List<GameObject>();
+        disabledRoads = new List<GameObject>();
 		roadLists = new List<List<GameObject>>();
 		disabledRoadList = new List<List<GameObject>>();
 		roadLists.Add(set1);
@@ -51,27 +52,37 @@ public class DestroyByBoundary : MonoBehaviour {
 			Vector3 frontPosition = new Vector3 (other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider> ().size.z);
 			if (roadLists.Count > 0) {
 				if (enumerator.MoveNext ()) {
-					print ("Has Next");
-					Instantiate (enumerator.Current, frontPosition, Quaternion.identity);
 					other.gameObject.SetActive (false);
 					disabledRoads.Add (other.gameObject);
+
+					Instantiate (enumerator.Current, frontPosition, Quaternion.identity);
+
 				} else {
 					roadLists.Remove(currentList);
+					listSize = roadLists.Count;
 					if (roadLists.Count > 0) {
 						
+						other.gameObject.SetActive (false);
+						disabledRoads.Add (other.gameObject);
+
+						disabledRoadList.Add(disabledRoads);
+						disabledRoads = new List<GameObject> ();
+
 						currentList = roadLists [Random.Range (0, roadLists.Count)];
 						enumerator = currentList.GetEnumerator ();
 						enumerator.MoveNext();
 
 						Instantiate (enumerator.Current, frontPosition, Quaternion.identity);
 					} else {
+						other.gameObject.SetActive (false);
+						disabledRoads.Add (other.gameObject);
+
+						disabledRoadList.Add(disabledRoads);
+						disabledRoads = new List<GameObject> ();
 						currentList = disabledRoadList [Random.Range (0, disabledRoadList.Count)];
 						enumerator = currentList.GetEnumerator ();
 						enumerator.MoveNext();
 
-						other.gameObject.SetActive (false);
-						disabledRoadList.Add (disabledRoads);
-						disabledRoads = new List<GameObject> ();
 					}
 				}
 
