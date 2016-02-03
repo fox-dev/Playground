@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
 	{
-        print(endPos.z);
+        //print(endPos.z);
         //print(inside + " " + left + " " + right);
         //print(endRotation.transform.rotation.x);
 
