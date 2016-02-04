@@ -19,9 +19,6 @@ public class DestroyByBoundary : MonoBehaviour {
     public List<int> setLength; // to keep track of the length for each set put in.
     public int numSets;
 
-    private List<List<GameObject>> inactiveList;
-    public List<GameObject> exitObjects;
-
     public bool makingRoads, initialSet_in;
 
     void Start()
@@ -29,9 +26,6 @@ public class DestroyByBoundary : MonoBehaviour {
         disabledRoads = new List<GameObject>();
 		roadLists = new List<List<GameObject>>();
 		disabledRoadList = new List<List<GameObject>>();
-
-        inactiveList = new List<List<GameObject>>();
-        exitObjects = new List<GameObject>();
 
 		roadLists.Add(set1);
         setLength.Add(set1.Count);
