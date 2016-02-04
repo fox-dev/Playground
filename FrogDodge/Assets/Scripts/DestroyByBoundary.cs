@@ -19,6 +19,9 @@ public class DestroyByBoundary : MonoBehaviour {
     public List<int> setLength; // to keep track of the length for each set put in.
     public int numSets;
 
+    private List<List<GameObject>> inactiveList;
+    public List<GameObject> exitObjects;
+
     public bool makingRoads, initialSet_in;
 
     void Start()
@@ -26,6 +29,9 @@ public class DestroyByBoundary : MonoBehaviour {
         disabledRoads = new List<GameObject>();
 		roadLists = new List<List<GameObject>>();
 		disabledRoadList = new List<List<GameObject>>();
+
+        inactiveList = new List<List<GameObject>>();
+        exitObjects = new List<GameObject>();
 
 		roadLists.Add(set1);
         setLength.Add(set1.Count);
@@ -133,7 +139,7 @@ public class DestroyByBoundary : MonoBehaviour {
                    }
                 }
             } //Making Roads bracket.
-            else if (setLength.Count > 0 && setLength[0] > 0 && makingRoads == false) //Continue adding to instantiated roads
+            else if (setLength.Count > 0 && setLength[0] > 0 && makingRoads == false) //Continue adding the instantiated roads to their sets
             {
                 disabledRoads.Add(other.gameObject);
                 setLength[0] = setLength[0] - 1;
@@ -143,37 +149,84 @@ public class DestroyByBoundary : MonoBehaviour {
                     setLength.RemoveAt(0);
                     disabledRoadList.Add(disabledRoads);
                     disabledRoads = new List<GameObject>();
-                }
+                } 
 
-                if (enumerator.MoveNext())
+                if (enumerator.MoveNext()) //begin using the inputted sets while remaining sets are put into disabledRoadList;
                 {
-                    print("Has Next");
+                    if (currentList[currentList.Count - 1].Equals(enumerator.Current)) //last object in set
+                    {
+                        print("placing last set piece");
+                    }
+                    PrefabUtility.ResetToPrefabState(enumerator.Current);
+                    enumerator.Current.SetActive(true);
+                    enumerator.Current.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider>().size.z);
                 }
                 else {
-                    currentList = disabledRoadList[Random.Range(0, disabledRoadList.Count)];
+                    print("Starting new roads");
+                    bool found = false;
+                    while (found == false) //look for a set that is not currently in use.
+                    {
+                        currentList = disabledRoadList[Random.Range(0, disabledRoadList.Count)];
+                        for (int x = 0; x < currentList.Count; x++)
+                        {
+                            if (currentList[x].gameObject.activeSelf == true)
+                            {
+                                found = false;
+                                break;
+                            }
+                            else
+                            {
+                                found = true;
+                            }
+
+                        }
+                    }
                     enumerator = currentList.GetEnumerator();
                     enumerator.MoveNext();
+                    PrefabUtility.ResetToPrefabState(enumerator.Current);
+                    enumerator.Current.SetActive(true);
+                    enumerator.Current.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider>().size.z);
                 }
-                PrefabUtility.ResetToPrefabState(enumerator.Current);
-                enumerator.Current.SetActive(true);
-                //Get front road's position and attach the next road right after it; frontroad size is handled accordingly.
-                enumerator.Current.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider>().size.z);
             }
             else //Main road loop starts now;
             {
                 if (enumerator.MoveNext())
                 {
-                    print("Has Next");
+                    if (currentList[currentList.Count - 1].Equals(enumerator.Current)) //last object in set
+                    {
+                        print("placing last set piece 2");
+                    }
+                    PrefabUtility.ResetToPrefabState(enumerator.Current);
+                    enumerator.Current.SetActive(true);
+                    //Get front road's position and attach the next road right after it; frontroad size is handled accordingly.
+                    enumerator.Current.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider>().size.z);
                 }
                 else {
-                    currentList = disabledRoadList[Random.Range(0, disabledRoadList.Count)];
+                    bool found = false;
+                    while(found == false) //look for a set that is not currently in use.
+                    {
+                        currentList = disabledRoadList[Random.Range(0, disabledRoadList.Count)];
+                        for(int x = 0; x < currentList.Count; x++)
+                        {
+                            if(currentList[x].gameObject.activeSelf == true)
+                            {
+                                found = false;
+                                break;
+                            }
+                            else
+                            {
+                                found = true;
+                            }
+                            
+                        }
+                    }
                     enumerator = currentList.GetEnumerator();
                     enumerator.MoveNext();
+                    PrefabUtility.ResetToPrefabState(enumerator.Current);
+                    enumerator.Current.SetActive(true);
+                    //Get front road's position and attach the next road right after it; frontroad size is handled accordingly.
+                    enumerator.Current.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider>().size.z);
                 }
-                PrefabUtility.ResetToPrefabState(enumerator.Current);
-                enumerator.Current.SetActive(true);
-                //Get front road's position and attach the next road right after it; frontroad size is handled accordingly.
-                enumerator.Current.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider>().size.z);
             }
         }
     }
