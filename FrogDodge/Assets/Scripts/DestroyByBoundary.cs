@@ -64,10 +64,10 @@ public class DestroyByBoundary : MonoBehaviour {
 
     void OnTriggerExit(Collider other)
     {
-       
+
         if(other.tag == "Road")
         {
-            Vector3 frontPosition = new Vector3(other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider>().size.z);
+			Vector3 frontPosition = new Vector3(other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + 44);
             other.gameObject.SetActive(false);
 
             if(makingRoads == true) //instantiating roads block
@@ -153,7 +153,7 @@ public class DestroyByBoundary : MonoBehaviour {
                     }
                     PrefabUtility.ResetToPrefabState(enumerator.Current);
                     enumerator.Current.SetActive(true);
-                    enumerator.Current.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider>().size.z);
+					enumerator.Current.transform.position = frontPosition;
                 }
                 else {
                     print("Starting new roads");
@@ -179,7 +179,7 @@ public class DestroyByBoundary : MonoBehaviour {
                     enumerator.MoveNext();
                     PrefabUtility.ResetToPrefabState(enumerator.Current);
                     enumerator.Current.SetActive(true);
-                    enumerator.Current.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider>().size.z);
+					enumerator.Current.transform.position = frontPosition;
                 }
             }
             else //Main road loop starts now;
@@ -193,7 +193,7 @@ public class DestroyByBoundary : MonoBehaviour {
                     PrefabUtility.ResetToPrefabState(enumerator.Current);
                     enumerator.Current.SetActive(true);
                     //Get front road's position and attach the next road right after it; frontroad size is handled accordingly.
-                    enumerator.Current.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider>().size.z);
+					enumerator.Current.transform.position = frontPosition;
                 }
                 else {
                     bool found = false;
@@ -219,7 +219,7 @@ public class DestroyByBoundary : MonoBehaviour {
                     PrefabUtility.ResetToPrefabState(enumerator.Current);
                     enumerator.Current.SetActive(true);
                     //Get front road's position and attach the next road right after it; frontroad size is handled accordingly.
-                    enumerator.Current.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + frontRoad.GetComponent<BoxCollider>().size.z);
+					enumerator.Current.transform.position = frontPosition;
                 }
             }
         }
