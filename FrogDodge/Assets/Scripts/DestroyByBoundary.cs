@@ -67,7 +67,7 @@ public class DestroyByBoundary : MonoBehaviour {
 
         if(other.tag == "Road")
         {
-			Vector3 frontPosition = new Vector3(other.transform.position.x, other.transform.position.y, frontRoad.transform.position.z + 44);
+			Vector3 frontPosition = new Vector3(other.transform.position.x, transform.position.y, frontRoad.transform.position.z + 44);
             other.gameObject.SetActive(false);
 
             if(makingRoads == true) //instantiating roads block
@@ -104,10 +104,10 @@ public class DestroyByBoundary : MonoBehaviour {
                     }
                 }
                 //Want to handle making sets now
-                if (initialSet.Count < 5 && initialSet_in == false) //number of road objects in scene is #
+                if (initialSet.Count < 6 && initialSet_in == false) //number of road objects in scene is #
                 {
                     initialSet.Add(other.gameObject);
-                    if (initialSet.Count == 5) //if the last initial road is put in.
+                    if (initialSet.Count == 6) //if the last initial road is put in.
                     {
                         print("Last initial set is in");
                         disabledRoadList.Add(initialSet);

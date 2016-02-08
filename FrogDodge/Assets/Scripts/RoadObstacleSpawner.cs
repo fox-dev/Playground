@@ -38,6 +38,17 @@ public class RoadObstacleSpawner : MonoBehaviour {
                     r.velocity = new Vector3(-1, 0, 0); // Sets obstacles into ready state to be moved.
                 }
 
+                if (r.tag == "TrainToRight")
+                {
+                    r.velocity = new Vector3(1, 0, 0); // Sets obstacles into ready state to be moved.
+
+                }
+
+                if (r.tag == "TrainToLeft")
+                {
+                    r.velocity = new Vector3(-1, 0, 0); // Sets obstacles into ready state to be moved.
+                }
+
             }
 
         }
@@ -76,13 +87,23 @@ public class RoadObstacleSpawner : MonoBehaviour {
             else if(other.GetComponent<Rigidbody>().velocity.x > 0)
             {
 
-                other.transform.position = new Vector3(-(GetComponent<BoxCollider>().size.x / 2 - other.GetComponent<BoxCollider>().size.x / 2) - other.GetComponent<BoxCollider>().size.x - 1, other.transform.position.y, other.transform.position.z);
+                other.transform.position = new Vector3(-(GetComponent<BoxCollider>().size.x/2 - other.GetComponent<BoxCollider>().size.x / 2) - other.GetComponent<BoxCollider>().size.x - 1, other.transform.position.y, other.transform.position.z);
             }
              else
             {
                 //do nothing if 0 to not interfere with obstacleobject reset() 
             }
         }
+        else if (other.tag == "TrainToRight")
+        {
+            //do not repeat train
+        }
+        else if (other.tag == "TrainToLeft")
+        {
+            //do not repeat train
+        }
+
+
 
     }
 }
