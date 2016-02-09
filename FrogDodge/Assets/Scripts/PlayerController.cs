@@ -68,6 +68,7 @@ public class PlayerController : MonoBehaviour {
             //GetComponent<Collider>().enabled = false;
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
             transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
+            GetComponent<AudioSource>().Play();
             anim.SetTrigger(moveHash);
 			gameController.addScore(scoreValue);
         }
@@ -77,6 +78,7 @@ public class PlayerController : MonoBehaviour {
             //GetComponent<Collider>().enabled = false;
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
             transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
+            GetComponent<AudioSource>().Play();
             anim.SetTrigger(moveHash);
 			gameController.addScore(scoreValue);
         }
@@ -85,6 +87,7 @@ public class PlayerController : MonoBehaviour {
             //GetComponent<Collider>().enabled = false;
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
             transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
+            GetComponent<AudioSource>().Play();
             anim.SetTrigger(moveHash);
 			gameController.addScore(scoreValue);
         }

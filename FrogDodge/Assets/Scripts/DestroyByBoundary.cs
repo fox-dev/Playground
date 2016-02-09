@@ -1,5 +1,4 @@
 ﻿ using UnityEngine;
-using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -68,6 +67,7 @@ public class DestroyByBoundary : MonoBehaviour {
         if(other.tag == "Road")
         {
 			Vector3 frontPosition = new Vector3(other.transform.position.x, transform.position.y, frontRoad.transform.position.z + 44);
+            
             other.gameObject.SetActive(false);
 
             if(makingRoads == true) //instantiating roads block
@@ -151,7 +151,7 @@ public class DestroyByBoundary : MonoBehaviour {
                     {
                         print("placing last set piece");
                     }
-                    PrefabUtility.ResetToPrefabState(enumerator.Current);
+                    //PrefabUtility.ResetToPrefabState(enumerator.Current);
                     enumerator.Current.SetActive(true);
 					enumerator.Current.transform.position = frontPosition;
                 }
@@ -177,7 +177,7 @@ public class DestroyByBoundary : MonoBehaviour {
                     }
                     enumerator = currentList.GetEnumerator();
                     enumerator.MoveNext();
-                    PrefabUtility.ResetToPrefabState(enumerator.Current);
+                    //PrefabUtility.ResetToPrefabState(enumerator.Current);
                     enumerator.Current.SetActive(true);
 					enumerator.Current.transform.position = frontPosition;
                 }
@@ -190,7 +190,7 @@ public class DestroyByBoundary : MonoBehaviour {
                     {
                         print("placing last set piece 2");
                     }
-                    PrefabUtility.ResetToPrefabState(enumerator.Current);
+                   // PrefabUtility.ResetToPrefabState(enumerator.Current);
                     enumerator.Current.SetActive(true);
                     //Get front road's position and attach the next road right after it; frontroad size is handled accordingly.
 					enumerator.Current.transform.position = frontPosition;
@@ -216,7 +216,7 @@ public class DestroyByBoundary : MonoBehaviour {
                     }
                     enumerator = currentList.GetEnumerator();
                     enumerator.MoveNext();
-                    PrefabUtility.ResetToPrefabState(enumerator.Current);
+                    //PrefabUtility.ResetToPrefabState(enumerator.Current);
                     enumerator.Current.SetActive(true);
                     //Get front road's position and attach the next road right after it; frontroad size is handled accordingly.
 					enumerator.Current.transform.position = frontPosition;
