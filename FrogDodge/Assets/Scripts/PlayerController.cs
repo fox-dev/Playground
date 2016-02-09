@@ -61,8 +61,18 @@ public class PlayerController : MonoBehaviour {
 
         lerp += Time.deltaTime / duration;
 
-       
-        if(Input.GetKeyDown("space")  && endPos.z == transform.position.z)
+        
+
+        if (Input.touchCount > 0)
+        {
+            float touched = Input.GetTouch(0).position.x;
+            print(touched);
+        }
+
+        
+
+
+        if ((Input.GetKeyDown("space")) && endPos.z == transform.position.z)
         {
 
             //GetComponent<Collider>().enabled = false;
@@ -73,7 +83,7 @@ public class PlayerController : MonoBehaviour {
 			gameController.addScore(scoreValue);
         }
 
-        else if(Input.GetKeyDown("left" ) && left > 0 && endPos.z == transform.position.z)
+        else if((Input.GetKeyDown("left" ) || (Input.touchCount > 0 && Input.GetTouch(0).position.x < Screen.width/2 && Input.GetTouch(0).phase == TouchPhase.Began))  && left > 0 && endPos.z == transform.position.z)
         {
             //GetComponent<Collider>().enabled = false;
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
@@ -82,7 +92,7 @@ public class PlayerController : MonoBehaviour {
             anim.SetTrigger(moveHash);
 			gameController.addScore(scoreValue);
         }
-        else if (Input.GetKeyDown("right") && right > 0 && endPos.z == transform.position.z)
+        else if ((Input.GetKeyDown("right") || (Input.touchCount > 0 && Input.GetTouch(0).position.x > Screen.width / 2 && Input.GetTouch(0).phase == TouchPhase.Began)) && right > 0 && endPos.z == transform.position.z)
         {
             //GetComponent<Collider>().enabled = false;
             endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
