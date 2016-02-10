@@ -38,7 +38,15 @@ public class Menu_PlayerController : MonoBehaviour
 
         rg = GetComponent<Rigidbody>();
 
-        GetComponent<MeshRenderer>().enabled = false;
+        //GetComponent<MeshRenderer>().enabled = false;
+        GetComponentInChildren<MeshRenderer>().enabled = false;
+        MeshRenderer[] childRenders = GetComponentsInChildren<MeshRenderer>();
+        foreach(MeshRenderer r in childRenders)
+        {
+            r.enabled = false;
+        }
+
+  
 
     }
 
@@ -65,58 +73,5 @@ public class Menu_PlayerController : MonoBehaviour
 
 
 
-    void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Cube" || other.tag == "Sphere")
-        {
-            if (other.transform.position.x < transform.position.x || other.transform.position.x > transform.position.x)
-            {
-                inside = false;
-                left = false;
-                right = false;
-
-            }
-
-        }
-    }
-
-    void OnTriggerStay(Collider other)
-    {
-
-        if (other.tag == "Cube" || other.tag == "Sphere")
-        {
-
-            if (other.transform.position.x > transform.position.x && other.GetComponent<Rigidbody>().velocity.x >= 0f)
-            {
-                //do nothing if object is moving to the right away from player
-            }
-            else if (other.transform.position.x < transform.position.x && other.GetComponent<Rigidbody>().velocity.x <= 0f)
-            {
-                //do nothing if object is moving to the left away from player
-            }
-            else if (other.transform.position.x < transform.position.x && other.GetComponent<Rigidbody>().velocity.x <= 0f)
-            {
-                //do nothing if object is moving to the left away from player
-            }
-            else if (other.transform.position.x < transform.position.x && other.GetComponent<Rigidbody>().velocity.x >= 0f)
-            {
-                //object is moving towards player from the left
-                left = true;
-                inside = true;
-
-            }
-            else if (other.transform.position.x > transform.position.x && other.GetComponent<Rigidbody>().velocity.x <= 0f)
-            {
-                //object is moving towards player from the right
-                right = true;
-                inside = true;
-
-
-            }
-
-
-
-
-        }
-    }
+ 
 }

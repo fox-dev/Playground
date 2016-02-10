@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
-	public GUIText scoreText;
-	public GUIText restartText;
-	public GUIText gameOverText;
+	public GameObject scoreText;
+	public GameObject restartText;
+	public GameObject gameOverText;
 
 	private int score;
 	private bool gameOver;
@@ -19,8 +20,10 @@ public class GameController : MonoBehaviour {
 		score = 0;
 		UpdateScore ();
 		restart = false;
-		restartText.text = "";
-		gameOverText.text = "";
+       
+        restartText.GetComponent<Text>().text = "";
+
+        gameOverText.GetComponent<Text>().text = "";
 
         GameObject audioObject = GameObject.FindWithTag("Audio");
 
@@ -38,14 +41,16 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (gameOver) {
-			restartText.text = "Press 'R' to Restart";
-			restart = true;
+       
+        if (gameOver) {
+    
+            restartText.GetComponent<Text>().text = "Tap to Restart";
+            restart = true;
 		}
 
 		if(restart)
 		{
-			if(Input.GetKeyDown(KeyCode.R) || Input.touchCount > 0)
+			if(Input.GetKeyDown(KeyCode.R) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
 
 			{
 				SceneManager.LoadScene ("NewMain");
@@ -55,8 +60,10 @@ public class GameController : MonoBehaviour {
 
 	void UpdateScore()
 	{
-		scoreText.text = "Score " + score;
-	}
+        
+        scoreText.GetComponent<Text>().text = "Score : " + score;
+
+    }
 
 	public void addScore(int newScoreValue)
 	{
@@ -66,7 +73,7 @@ public class GameController : MonoBehaviour {
 
 	public void GameOver()
 	{
-		gameOverText.text = "Game Over";
+        gameOverText.GetComponent<Text>().text = "Game Over"; ;
         audioManager.GameOverMusic();
 		gameOver = true;
 	}	
