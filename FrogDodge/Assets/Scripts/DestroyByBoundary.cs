@@ -7,7 +7,7 @@ public class DestroyByBoundary : MonoBehaviour {
 	Rigidbody rg;
     public GameObject player;
     public GameObject backRoad, frontRoad;
-    public List<GameObject> set1, set2;
+    public List<GameObject> set1, set2, set3;
 	private List<List<GameObject>> disabledRoadList;
 	public List<GameObject> disabledRoads;
 	public List<GameObject> currentList;
@@ -32,10 +32,27 @@ public class DestroyByBoundary : MonoBehaviour {
         roadLists.Add(set2);
         setLength.Add(set2.Count);
 
-        currentList = roadLists[0];
+		roadLists.Add(set3);
+		setLength.Add(set3.Count);
+
+		currentList = roadLists[Random.Range(0, roadLists.Count)];
+
+		int i = 0;
+		foreach (GameObject g in currentList) {
+
+			Vector3 temp = g.GetComponent<Transform>().position;
+			Vector3 position = new Vector3(temp.x , temp.y, 44 * i);
+			Instantiate (g, position , Quaternion.identity);
+			i++;
+
+		}
+
+		roadLists.Remove(currentList);
+
+		currentList = roadLists[Random.Range(0, roadLists.Count)];
 		enumerator = currentList.GetEnumerator();
 
-        numSets = roadLists.Count + 1; // +1 to account for existing set in the scene.
+        numSets = roadLists.Count; // +1 to account for existing set in the scene.
 
         makingRoads = true;
         initialSet_in = false;
@@ -104,10 +121,10 @@ public class DestroyByBoundary : MonoBehaviour {
                     }
                 }
                 //Want to handle making sets now
-                if (initialSet.Count < 6 && initialSet_in == false) //number of road objects in scene is #
+                if (initialSet.Count < 5 && initialSet_in == false) //number of road objects in scene is #
                 {
                     initialSet.Add(other.gameObject);
-                    if (initialSet.Count == 6) //if the last initial road is put in.
+                    if (initialSet.Count == 5) //if the last initial road is put in.
                     {
                         print("Last initial set is in");
                         disabledRoadList.Add(initialSet);

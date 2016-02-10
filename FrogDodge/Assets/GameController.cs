@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour {
 	public GameObject scoreText;
 	public GameObject restartText;
 	public GameObject gameOverText;
+	public GameObject player;
 
 	private int score;
 	private bool gameOver;
@@ -35,6 +36,9 @@ public class GameController : MonoBehaviour {
         {
             Debug.Log("Cannot find 'BGM' script");
         }
+
+		Vector3 position = new Vector3(0, 0, 0);
+		Instantiate (player, position , Quaternion.identity);
 
     }
 	
