@@ -65,8 +65,10 @@
   <ItemGroup>
     <Compile Include="Assets\GameController.cs" />
     <Compile Include="Assets\Scripts\BGM.cs" />
+    <Compile Include="Assets\Scripts\Boundary_Menu.cs" />
     <Compile Include="Assets\Scripts\CameraScript.cs" />
     <Compile Include="Assets\Scripts\DestroyByBoundary.cs" />
+    <Compile Include="Assets\Scripts\GameController_Menu.cs" />
     <Compile Include="Assets\Scripts\HitboxScript.cs" />
     <Compile Include="Assets\Scripts\MenuScript.cs" />
     <Compile Include="Assets\Scripts\Menu_Controller.cs" />
