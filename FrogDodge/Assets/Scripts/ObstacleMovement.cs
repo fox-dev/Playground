@@ -98,7 +98,7 @@ public class ObstacleMovement : MonoBehaviour
 
 	void OnTriggerEnter(Collider other) 
 	{
-		if (other.tag == "Player") 
+		if (other.tag == "PlayerMoveBox") 
 		{
             
 
@@ -111,11 +111,17 @@ public class ObstacleMovement : MonoBehaviour
                 frog.insideRight();
             }
 		}
+
+        if (other.tag == "Player")
+        {
+            destroyPlayer();
+            gameController.GameOver();
+        }
 	}
 
     void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "PlayerMoveBox")
         {
 
             if (other.transform.position.x > transform.position.x && GetComponent<Rigidbody>().velocity.x >= 0f)
@@ -131,7 +137,7 @@ public class ObstacleMovement : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision) //physical contact
     {
         if(collision.collider.tag == "Player")
         {
@@ -144,13 +150,16 @@ public class ObstacleMovement : MonoBehaviour
     void destroyPlayer()
     {
         //frog.gameObject.SetActive(false);
-        //frog.GetComponent<MeshRenderer>().enabled = false;
+
+        /*
         Renderer[] renderers = frog.GetComponentsInChildren<Renderer>();
 
         foreach (Renderer r in renderers)
         {
             r.enabled = false;
         }
+        */
+        frog.playDead();
     }
  
 }

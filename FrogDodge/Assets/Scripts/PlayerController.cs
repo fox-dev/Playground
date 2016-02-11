@@ -25,9 +25,14 @@ public class PlayerController : MonoBehaviour {
     //int stopHash = Animator.StringToHash("Stop");
     int moveHash = Animator.StringToHash("Jump");
     int stopHash = Animator.StringToHash("Idle");
+    int deathHash = Animator.StringToHash("Roadkill");
+
+    private bool gameOverFlag;
 
     void Start()
     {
+        gameOverFlag = false;
+
         inside = 0;
         obstacles = new ArrayList();
         startPos = transform.position;
@@ -51,7 +56,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update()
-	{
+    {
         //print(endPos.z);
         //print(inside + " " + left + " " + right);
         //print(endRotation.transform.rotation.x);
@@ -61,7 +66,7 @@ public class PlayerController : MonoBehaviour {
 
         lerp += Time.deltaTime / duration;
 
-        
+
 
         if (Input.touchCount > 0)
         {
@@ -69,46 +74,48 @@ public class PlayerController : MonoBehaviour {
             print(touched);
         }
 
-        
 
 
-        if ((Input.GetKeyDown("space")) && endPos.z == transform.position.z)
+        if (!gameOverFlag)
         {
+            if ((Input.GetKeyDown("space")) && endPos.z == transform.position.z)
+            {
 
-            //GetComponent<Collider>().enabled = false;
-            endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
-            transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
-            GetComponent<AudioSource>().Play();
-            anim.SetTrigger(moveHash);
-			gameController.addScore(scoreValue);
-        }
+                //GetComponent<Collider>().enabled = false;
+                endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
+                transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
+                GetComponent<AudioSource>().Play();
+                anim.SetTrigger(moveHash);
+                gameController.addScore(scoreValue);
+            }
 
-        else if((Input.GetKeyDown("left" ) || (Input.touchCount > 0 && Input.GetTouch(0).position.x < Screen.width/2 && Input.GetTouch(0).phase == TouchPhase.Began))  && left > 0 && endPos.z == transform.position.z)
-        {
-            //GetComponent<Collider>().enabled = false;
-            endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
-            transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
-            GetComponent<AudioSource>().Play();
-            anim.SetTrigger(moveHash);
-			gameController.addScore(scoreValue);
-        }
-        else if ((Input.GetKeyDown("right") || (Input.touchCount > 0 && Input.GetTouch(0).position.x > Screen.width / 2 && Input.GetTouch(0).phase == TouchPhase.Began)) && right > 0 && endPos.z == transform.position.z)
-        {
-            //GetComponent<Collider>().enabled = false;
-            endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
-            transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
-            GetComponent<AudioSource>().Play();
-            anim.SetTrigger(moveHash);
-			gameController.addScore(scoreValue);
-        }
-        else
-        {
-            anim.SetTrigger(stopHash);
-        }
+            else if ((Input.GetKeyDown("left") || (Input.touchCount > 0 && Input.GetTouch(0).position.x < Screen.width / 2 && Input.GetTouch(0).phase == TouchPhase.Began)) && left > 0 && endPos.z == transform.position.z)
+            {
+                //GetComponent<Collider>().enabled = false;
+                endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
+                transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
+                GetComponent<AudioSource>().Play();
+                anim.SetTrigger(moveHash);
+                gameController.addScore(scoreValue);
+            }
+            else if ((Input.GetKeyDown("right") || (Input.touchCount > 0 && Input.GetTouch(0).position.x > Screen.width / 2 && Input.GetTouch(0).phase == TouchPhase.Began)) && right > 0 && endPos.z == transform.position.z)
+            {
+                //GetComponent<Collider>().enabled = false;
+                endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
+                transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
+                GetComponent<AudioSource>().Play();
+                anim.SetTrigger(moveHash);
+                gameController.addScore(scoreValue);
+            }
+            else
+            {
+                anim.SetTrigger(stopHash);
+            }
 
-        if(transform.position.z >= endPos.z)
-        {
-           GetComponent<Collider>().enabled = true;
+            if (transform.position.z >= endPos.z)
+            {
+                GetComponent<Collider>().enabled = true;
+            }
         }
       
 
@@ -151,6 +158,13 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    public void playDead() {
+        gameOverFlag = true; 
+        anim.SetTrigger(deathHash);
+    }
+
   
+
+
 
 }

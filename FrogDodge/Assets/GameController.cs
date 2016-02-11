@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour {
         }
 
 		Vector3 position = new Vector3(0, 0, 0);
-		Instantiate (player, position , Quaternion.identity);
+		//Instantiate (player, position , Quaternion.identity);
 
     }
 	

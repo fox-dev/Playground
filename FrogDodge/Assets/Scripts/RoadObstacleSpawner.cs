@@ -13,15 +13,48 @@ public class RoadObstacleSpawner : MonoBehaviour {
 
         foreach (Rigidbody r in obstacles)
         {
-            r.velocity = Vector3.zero;
+            //r.velocity = Vector3.zero;
             r.angularVelocity = Vector3.zero;
+        }
+    }
+
+    //Called at the very start of game when instantiating first roads.
+    public void StartGameObjects()
+    {
+        print("I called this");
+        Rigidbody[] obstacles = GetComponentsInChildren<Rigidbody>();
+        foreach (Rigidbody r in obstacles)
+        {
+            if (r.tag == "Cube")
+            {
+                r.velocity = new Vector3(1, 0, 0); // Sets obstacles into ready state to be moved.
+
+            }
+
+            if (r.tag == "Sphere")
+            {
+                r.velocity = new Vector3(-1, 0, 0); // Sets obstacles into ready state to be moved.
+            }
+
+            if (r.tag == "TrainToRight")
+            {
+                r.velocity = new Vector3(1, 0, 0); // Sets obstacles into ready state to be moved.
+
+            }
+
+            if (r.tag == "TrainToLeft")
+            {
+                r.velocity = new Vector3(-1, 0, 0); // Sets obstacles into ready state to be moved.
+
+            }
+
         }
     }
 
     // On entering collider of next road, 
 	void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" || other.tag == "Menu_Player")
         {
             Rigidbody[] obstacles = GetComponentsInChildren<Rigidbody>();
 
@@ -60,6 +93,8 @@ public class RoadObstacleSpawner : MonoBehaviour {
         }
         
     }
+
+
     void OnTriggerExit(Collider other)
     {
 
