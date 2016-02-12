@@ -4,7 +4,8 @@ using System.Collections;
 public class ObstacleMovement : MonoBehaviour 
 {
 
-    
+    public GameObject explosion;
+
     public float moveSpeed;
     public float maxSpeed;
 	private float acceleration;
@@ -20,6 +21,7 @@ public class ObstacleMovement : MonoBehaviour
 
     void Start()
     {
+        
         //To 0 velocity all obstacles till player reaches trigger
         moveSpeed = 0;
 		acceleration = 5;
@@ -80,7 +82,7 @@ public class ObstacleMovement : MonoBehaviour
 
     void OnEnable()
     {
-        //Reset();
+        
         
     }
 
@@ -139,12 +141,14 @@ public class ObstacleMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision collision) //physical contact
     {
-        if(collision.collider.tag == "Player")
+       
+        if (collision.collider.tag == "Cube")
         {
-            destroyPlayer();
-            gameController.GameOver();
+            Instantiate(Resources.Load("explosion"), collision.contacts[0].point, Quaternion.identity);
+            collision.collider.gameObject.SetActive(false);
+            this.gameObject.SetActive(false);
         }
-     
+
     }
 
     void destroyPlayer()

@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour {
 
     void Start()
     {
+
+
+    
         gameOverFlag = false;
 
         inside = 0;
@@ -57,6 +60,8 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
+
+        
         //print(endPos.z);
         //print(inside + " " + left + " " + right);
         //print(endRotation.transform.rotation.x);
@@ -74,6 +79,9 @@ public class PlayerController : MonoBehaviour {
             print(touched);
         }
 
+      
+        //print("Time: " + Time.time);
+     
 
 
         if (!gameOverFlag)
@@ -87,9 +95,9 @@ public class PlayerController : MonoBehaviour {
                 GetComponent<AudioSource>().Play();
                 anim.SetTrigger(moveHash);
                 gameController.addScore(scoreValue);
+                Instantiate(Resources.Load("explosion"), transform.position, Quaternion.identity);
             }
-
-            else if ((Input.GetKeyDown("left") || (Input.touchCount > 0 && Input.GetTouch(0).position.x < Screen.width / 2 && Input.GetTouch(0).phase == TouchPhase.Began)) && left > 0 && endPos.z == transform.position.z)
+            else if ((Input.GetKeyDown("left") || (Input.touchCount > 0 && Input.GetTouch(0).position.x < Screen.width / 2 && Input.GetTouch(0).phase == TouchPhase.Began)) && (left > 0 && right == 0) && endPos.z == transform.position.z)
             {
                 //GetComponent<Collider>().enabled = false;
                 endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
@@ -98,7 +106,7 @@ public class PlayerController : MonoBehaviour {
                 anim.SetTrigger(moveHash);
                 gameController.addScore(scoreValue);
             }
-            else if ((Input.GetKeyDown("right") || (Input.touchCount > 0 && Input.GetTouch(0).position.x > Screen.width / 2 && Input.GetTouch(0).phase == TouchPhase.Began)) && right > 0 && endPos.z == transform.position.z)
+            else if ((Input.GetKeyDown("right") || (Input.touchCount > 0 && Input.GetTouch(0).position.x > Screen.width / 2 && Input.GetTouch(0).phase == TouchPhase.Began)) && (right > 0 && left == 0) && endPos.z == transform.position.z)
             {
                 //GetComponent<Collider>().enabled = false;
                 endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);

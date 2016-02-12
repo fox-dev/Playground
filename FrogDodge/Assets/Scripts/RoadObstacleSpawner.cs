@@ -18,6 +18,15 @@ public class RoadObstacleSpawner : MonoBehaviour {
         }
     }
 
+    void OnEnable()
+    {
+        foreach(Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+
+   } 
+
     //Called at the very start of game when instantiating first roads.
     public void StartGameObjects()
     {

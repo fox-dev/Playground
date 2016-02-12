@@ -7,7 +7,7 @@ public class DestroyByBoundary : MonoBehaviour {
 	Rigidbody rg;
     public GameObject player;
     public GameObject backRoad, frontRoad;
-    public List<GameObject> set1, set2, set3;
+    public List<GameObject> set1, set2, set3, set4;
 	private List<List<GameObject>> disabledRoadList;
 	public List<GameObject> disabledRoads;
 	public List<GameObject> currentList;
@@ -36,6 +36,9 @@ public class DestroyByBoundary : MonoBehaviour {
 
 		roadLists.Add(set3);
 		setLength.Add(set3.Count);
+
+        roadLists.Add(set4);
+        setLength.Add(set4.Count);
 
 		currentList = roadLists[Random.Range(0, roadLists.Count)];
 
@@ -94,8 +97,14 @@ public class DestroyByBoundary : MonoBehaviour {
 
     void OnTriggerExit(Collider other)
     {
+        if (other.tag == "Effect")
+        {
+            print("kkkkk");
 
-        if(other.tag == "Road")
+            Destroy(other.gameObject, 5f);
+        }
+
+        if (other.tag == "Road")
         {
 			Vector3 frontPosition = new Vector3(other.transform.position.x, transform.position.y, frontRoad.transform.position.z + 44);
             
@@ -254,5 +263,6 @@ public class DestroyByBoundary : MonoBehaviour {
                 }
             }
         }
+        
     }
 }

@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Boundary_Menu.cs" />
     <Compile Include="Assets\Scripts\CameraScript.cs" />
     <Compile Include="Assets\Scripts\DestroyByBoundary.cs" />
+    <Compile Include="Assets\Scripts\Explosion.cs" />
     <Compile Include="Assets\Scripts\GameController_Menu.cs" />
     <Compile Include="Assets\Scripts\HitboxScript.cs" />
     <Compile Include="Assets\Scripts\MenuScript.cs" />
