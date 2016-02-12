@@ -46,13 +46,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\CreatePlane.cs" />
-     <None Include="Assets\EasyRoads3D Free\Shaders\EasyRoads3D-Surface.shader" />
-     <None Include="Assets\EasyRoads3D Free\Shaders\EasyRoads3D Marker.shader" />
-     <None Include="Assets\EasyRoads3D Free\Shaders\EasyRoads3D-Surface_Alpha.shader" />
-     <None Include="Assets\EasyRoads3D Free\Shaders\surfaceAlpha.shader" />
-     <None Include="Assets\EasyRoads3D Free\Shaders\EasyRoads3D-Normal-Diffuse.shader" />
-     <None Include="Assets\EasyRoads3D Free\Shaders\Surface.shader" />
-     <None Include="Assets\EasyRoads3D Free\Shaders\EasyRoads3D-Road-Edit-Mode.shader" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>

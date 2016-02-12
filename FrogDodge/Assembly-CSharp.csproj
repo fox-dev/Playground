@@ -45,10 +45,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\GameController.cs" />
      <Compile Include="Assets\Scripts\BGM.cs" />
+     <Compile Include="Assets\Scripts\Boundary_Menu.cs" />
      <Compile Include="Assets\Scripts\CameraScript.cs" />
      <Compile Include="Assets\Scripts\DestroyByBoundary.cs" />
+     <Compile Include="Assets\Scripts\Explosion.cs" />
+     <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\GameController_Menu.cs" />
      <Compile Include="Assets\Scripts\HitboxScript.cs" />
      <Compile Include="Assets\Scripts\MenuScript.cs" />
      <Compile Include="Assets\Scripts\Menu_Controller.cs" />
@@ -59,13 +62,6 @@
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\RoadObstacleSpawner.cs" />
      <Compile Include="Assets\Scripts\TrainAudioScript.cs" />
-     <None Include="Assets\EasyRoads3D Free\Shaders\EasyRoads3D-Surface.shader" />
-     <None Include="Assets\EasyRoads3D Free\Shaders\EasyRoads3D Marker.shader" />
-     <None Include="Assets\EasyRoads3D Free\Shaders\EasyRoads3D-Surface_Alpha.shader" />
-     <None Include="Assets\EasyRoads3D Free\Shaders\surfaceAlpha.shader" />
-     <None Include="Assets\EasyRoads3D Free\Shaders\EasyRoads3D-Normal-Diffuse.shader" />
-     <None Include="Assets\EasyRoads3D Free\Shaders\Surface.shader" />
-     <None Include="Assets\EasyRoads3D Free\Shaders\EasyRoads3D-Road-Edit-Mode.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

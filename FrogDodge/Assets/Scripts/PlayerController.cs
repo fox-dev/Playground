@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour {
                 GetComponent<AudioSource>().Play();
                 anim.SetTrigger(moveHash);
                 gameController.addScore(scoreValue);
-                Instantiate(Resources.Load("explosion"), transform.position, Quaternion.identity);
+                //Instantiate(Resources.Load("explosion"), transform.position, Quaternion.identity);
             }
             else if ((Input.GetKeyDown("left") || (Input.touchCount > 0 && Input.GetTouch(0).position.x < Screen.width / 2 && Input.GetTouch(0).phase == TouchPhase.Began)) && (left > 0 && right == 0) && endPos.z == transform.position.z)
             {
