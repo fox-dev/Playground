@@ -28,12 +28,14 @@ public class PlayerController : MonoBehaviour {
     int deathHash = Animator.StringToHash("Roadkill");
 
     private bool gameOverFlag;
+    private bool sameTime;
 
     void Start()
     {
 
 
-    
+
+        sameTime = false;
         gameOverFlag = false;
 
         inside = 0;
@@ -75,12 +77,33 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.touchCount > 0)
         {
-            float touched = Input.GetTouch(0).position.x;
-            print(touched);
+            //float touched = Input.GetTouch(0).position.x;
+            //print(touched);
         }
 
       
-        //print("Time: " + Time.time);
+
+        if(Input.touchCount > 1)
+        {
+
+            //print(Input.GetTouch(0).position.x + " " + Input.GetTouch(1).position.x);
+            if((Input.GetTouch(0).position.x < Screen.width/2) && (Input.GetTouch(1).position.x > Screen.width/2 && Input.GetTouch(1).phase == TouchPhase.Began))
+            {
+                print("SAME TIME!");
+               
+
+            }
+            else if ((Input.GetTouch(0).position.x > Screen.width/2) && (Input.GetTouch(1).position.x < Screen.width / 2 && Input.GetTouch(1).phase == TouchPhase.Began))
+            {
+                print("SAME TIME!");
+               
+            }
+            sameTime = true;
+        }
+        else
+        {
+            sameTime = false;
+        } 
      
 
 
@@ -96,6 +119,30 @@ public class PlayerController : MonoBehaviour {
                 anim.SetTrigger(moveHash);
                 gameController.addScore(scoreValue);
                 //Instantiate(Resources.Load("explosion"), transform.position, Quaternion.identity);
+            }
+            else if (Input.touchCount > 1 && (left > 0 && right > 0) && endPos.z == transform.position.z)
+            {
+                if ((Input.GetTouch(0).position.x < Screen.width / 2) && (Input.GetTouch(1).position.x > Screen.width / 2 && Input.GetTouch(1).phase == TouchPhase.Began))
+                {
+                    print("SAME TIME!");
+                    //GetComponent<Collider>().enabled = false;
+                    endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
+                    transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
+                    GetComponent<AudioSource>().Play();
+                    anim.SetTrigger(moveHash);
+                    gameController.addScore(scoreValue);
+
+                }
+                else if ((Input.GetTouch(0).position.x > Screen.width / 2) && (Input.GetTouch(1).position.x < Screen.width / 2 && Input.GetTouch(1).phase == TouchPhase.Began))
+                {
+                    print("SAME TIME!");
+                    //GetComponent<Collider>().enabled = false;
+                    endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDistance);
+                    transform.rotation *= Quaternion.Euler(rotationInDegrees, 0, 0);
+                    GetComponent<AudioSource>().Play();
+                    anim.SetTrigger(moveHash);
+                    gameController.addScore(scoreValue);
+                }
             }
             else if ((Input.GetKeyDown("left") || (Input.touchCount > 0 && Input.GetTouch(0).position.x < Screen.width / 2 && Input.GetTouch(0).phase == TouchPhase.Began)) && (left > 0 && right == 0) && endPos.z == transform.position.z)
             {
