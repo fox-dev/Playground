@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
 	public GameObject scoreText;
-	//public GameObject restartText;
+	public GameObject highScoreText;
 	public GameObject gameOverText;
 	public GameObject player;
     
@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour {
 
     BGM audioManager;
 
-    public Transform centerPoint, lowerCenterPoint;
+    public Transform topCenterPoint, centerPoint, lowerCenterPoint;
     float lerpValue = 0.05f;
     float currentTime = 0f;
 
@@ -106,7 +106,7 @@ public class GameController : MonoBehaviour {
 
 	public void GameOver()
 	{
-        gameOverText.GetComponent<Text>().text = "Game Over"; ;
+        gameOverText.GetComponent<Text>().text = "Game Over"; 
         audioManager.GameOverMusic();
 		gameOver = true;
 	}
@@ -116,6 +116,11 @@ public class GameController : MonoBehaviour {
         if (score > highscore)
         {
             PlayerPrefs.SetInt("highscore", score);
+            highScoreText.GetComponent<Text>().text = "New Highscore: " + score;
+        }
+        else
+        {
+            highScoreText.GetComponent<Text>().text = "Highscore: " + PlayerPrefs.GetInt("highscore");
         }
         restart = true;
         restartButton.gameObject.SetActive(true);
@@ -142,6 +147,10 @@ public class GameController : MonoBehaviour {
     {
         restartButton.transform.position = Vector3.Lerp(restartButton.transform.position, centerPoint.transform.position, lerpValue);
         menuButton.transform.position = Vector3.Lerp(menuButton.transform.position, lowerCenterPoint.transform.position, lerpValue);
+        scoreText.transform.position = Vector3.Lerp(scoreText.transform.position, topCenterPoint.transform.position, lerpValue);
+
+        Vector3 hs_Pos = new Vector3(topCenterPoint.transform.position.x, topCenterPoint.transform.position.y + 30f, topCenterPoint.transform.position.z);
+        highScoreText.transform.position = Vector3.Lerp(highScoreText.transform.position, hs_Pos, lerpValue);
     }
 
 

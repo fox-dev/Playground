@@ -7,7 +7,7 @@ public class DestroyByBoundary : MonoBehaviour {
 	Rigidbody rg;
     public GameObject player;
     public GameObject backRoad, frontRoad;
-    public List<GameObject> set1, set2, set3, set4, set5, set6;
+    public List<GameObject> set1, set2, set3, set4, set5, set6, set7;
 	private List<List<GameObject>> disabledRoadList;
 	public List<GameObject> disabledRoads;
 	public List<GameObject> currentList;
@@ -45,6 +45,9 @@ public class DestroyByBoundary : MonoBehaviour {
 
 		roadLists.Add(set6);
 		setLength.Add(set6.Count);
+
+        roadLists.Add(set7);
+        setLength.Add(set7.Count);
 
 		currentList = roadLists[Random.Range(0, roadLists.Count)];
 
