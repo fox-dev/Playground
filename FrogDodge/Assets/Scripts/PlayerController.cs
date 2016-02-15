@@ -4,8 +4,6 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
     public int inside,left,right = 0;
-    ArrayList obstacles;
-
 
 	Rigidbody rg;
     Vector3 startPos, endPos;
@@ -33,13 +31,10 @@ public class PlayerController : MonoBehaviour {
     void Start()
     {
 
-
-
         sameTime = false;
         gameOverFlag = false;
 
         inside = 0;
-        obstacles = new ArrayList();
         startPos = transform.position;
         endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
        
@@ -60,6 +55,11 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    void FixedUpdate()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, endPos, speed * Time.deltaTime);
+    }
+
     void Update()
     {
 
@@ -73,8 +73,6 @@ public class PlayerController : MonoBehaviour {
 
         lerp += Time.deltaTime / duration;
 
-
-
         if (Input.touchCount > 0)
         {
             //float touched = Input.GetTouch(0).position.x;
@@ -82,7 +80,7 @@ public class PlayerController : MonoBehaviour {
         }
 
       
-
+       /*
         if(Input.touchCount > 1)
         {
 
@@ -104,8 +102,7 @@ public class PlayerController : MonoBehaviour {
         {
             sameTime = false;
         } 
-     
-
+        */
 
         if (!gameOverFlag)
         {
@@ -166,18 +163,13 @@ public class PlayerController : MonoBehaviour {
             {
                 anim.SetTrigger(stopHash);
             }
-
-            if (transform.position.z >= endPos.z)
-            {
-                GetComponent<Collider>().enabled = true;
-            }
         }
       
 
         //float move = Input.GetAxis("Vertical");
         //anim.SetFloat("Speed", move);
 
-        transform.position = Vector3.MoveTowards(transform.position, endPos, speed*Time.deltaTime);
+       
 
         //transform.rotation = Quaternion.Lerp(transform.rotation, endRotation.transform.rotation, rotSpeed * Time.deltaTime);
 
@@ -217,9 +209,5 @@ public class PlayerController : MonoBehaviour {
         gameOverFlag = true; 
         anim.SetTrigger(deathHash);
     }
-
-  
-
-
 
 }

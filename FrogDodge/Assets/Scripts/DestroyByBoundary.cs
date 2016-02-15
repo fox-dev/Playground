@@ -107,6 +107,11 @@ public class DestroyByBoundary : MonoBehaviour {
             Destroy(other.gameObject, 5f);
         }
 
+        if (other.tag == "Highscore_Label")
+        {
+            Destroy(other.gameObject, 5f);
+        }
+
         if (other.tag == "Road")
         {
 			Vector3 frontPosition = new Vector3(other.transform.position.x, transform.position.y, frontRoad.transform.position.z + 44);
