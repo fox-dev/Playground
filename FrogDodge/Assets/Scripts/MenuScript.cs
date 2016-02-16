@@ -17,7 +17,7 @@ public class MenuScript : MonoBehaviour
     public GameObject confirmPanel;
     
 
-    float lerpValue = 0.05f;
+    float lerpValue = 0.5f;
 
     void Start()
     {
@@ -60,7 +60,7 @@ public class MenuScript : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         
         lerpHighScores();

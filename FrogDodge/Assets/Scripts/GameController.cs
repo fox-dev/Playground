@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour {
 
     BGM audioManager;
 
-    public Transform topCenterPoint, centerPoint, lowerCenterPoint;
+    public Transform topCenterPoint, topCenterPoint2, centerPoint, lowerCenterPoint;
     float lerpValue = 0.05f;
     float currentTime = 0f;
 
@@ -148,9 +148,7 @@ public class GameController : MonoBehaviour {
         restartButton.transform.position = Vector3.Lerp(restartButton.transform.position, centerPoint.transform.position, lerpValue);
         menuButton.transform.position = Vector3.Lerp(menuButton.transform.position, lowerCenterPoint.transform.position, lerpValue);
         scoreText.transform.position = Vector3.Lerp(scoreText.transform.position, topCenterPoint.transform.position, lerpValue);
-
-        Vector3 hs_Pos = new Vector3(topCenterPoint.transform.position.x, topCenterPoint.transform.position.y + 30f, topCenterPoint.transform.position.z);
-        highScoreText.transform.position = Vector3.Lerp(highScoreText.transform.position, hs_Pos, lerpValue);
+        highScoreText.transform.position = Vector3.Lerp(highScoreText.transform.position, topCenterPoint2.transform.position, lerpValue);
     }
 
 
