@@ -7,12 +7,15 @@ public class MenuScript : MonoBehaviour
 {
     public Button play, highscore;
     public Button reset;
-    private bool openCanvas;
+    private bool openCanvas, openTCanvas;
     
 
     public Canvas highScore_Canvas;
     public GameObject highscoreText;
     public Transform canvasPos_on, canvasPos_off;
+
+	public Canvas tutorial_Canvas;
+	public Transform canvasPosT_on, canvasPosT_off;
 
     public GameObject confirmPanel;
     
@@ -63,11 +66,11 @@ public class MenuScript : MonoBehaviour
     void FixedUpdate()
     {
         
-        lerpHighScores();
+        lerpCanvases();
         
     }
 
-    public void lerpHighScores()
+    public void lerpCanvases()
     {
         if(openCanvas)
         {
@@ -77,6 +80,16 @@ public class MenuScript : MonoBehaviour
         {
             highScore_Canvas.transform.position = Vector3.Lerp(highScore_Canvas.transform.position, canvasPos_off.position, lerpValue);
         }
+
+		if(openTCanvas)
+		{
+			tutorial_Canvas.transform.position = Vector3.Lerp(tutorial_Canvas.transform.position, canvasPosT_on.position, lerpValue);
+		}
+		else
+		{
+			tutorial_Canvas.transform.position = Vector3.Lerp(tutorial_Canvas.transform.position, canvasPosT_off.position, lerpValue);
+		}
+			
 
         
     }
@@ -99,6 +112,26 @@ public class MenuScript : MonoBehaviour
             openCanvas = true;
         }
     }
+
+	public void openTutorialCanvas()
+	{
+
+		if (openTCanvas == true)
+		{
+			openTCanvas = false;
+		}
+		else
+		{
+			openTCanvas = true;
+		}
+	}
+
+	public void closeTutorialCanvas()
+	{
+		if (openTCanvas == true) {
+			openTCanvas = false;
+		}
+	}
 
 
     
