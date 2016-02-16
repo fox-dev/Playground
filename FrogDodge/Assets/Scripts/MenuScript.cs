@@ -18,6 +18,8 @@ public class MenuScript : MonoBehaviour
 	public Transform canvasPosT_on, canvasPosT_off;
 
     public GameObject confirmPanel;
+
+    public GameObject frog;
     
 
     float lerpValue = 0.5f;
@@ -67,6 +69,8 @@ public class MenuScript : MonoBehaviour
     {
         
         lerpCanvases();
+
+        frog.GetComponent<Transform>().Rotate(Vector3.up, 0.5f);
         
     }
 
