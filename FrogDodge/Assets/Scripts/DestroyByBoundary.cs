@@ -108,14 +108,12 @@ public class DestroyByBoundary : MonoBehaviour {
     {
         if (other.tag == "Effect")
         {
-            print("kkkkk");
-
-            Destroy(other.gameObject, 5f);
+           // Destroy(other.gameObject, 5f);
         }
 
         if (other.tag == "Highscore_Label")
         {
-            Destroy(other.gameObject, 5f);
+            //Destroy(other.gameObject, 5f);
         }
 
         if (other.tag == "Road")
